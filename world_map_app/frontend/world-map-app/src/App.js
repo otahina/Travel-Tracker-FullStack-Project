@@ -7,20 +7,22 @@ import './App.css';
 
 const App = () => {
   return (
-    <Router>
-      <header className="app-header">
-        <h1>GlobeMarks: Where Have You Been in the World?</h1>
-        <div>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-        </div>
-      </header>
-      <Routes>
-        <Route exact path="/" element={<MapComponent />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </Router>
+    <div className="App">
+        <Router>
+          <header className="app-header">
+            <h1>GlobeMarks: Where Have You Been in the World?</h1>
+            <div class="navigation">
+              <Link to="/register">Register</Link>
+              <Link to="/login">Login</Link>
+            </div>
+          </header>
+          <Routes>
+            <Route exact path="/" element={<MapComponent />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </Router>
+    </div>
   );
 };
 

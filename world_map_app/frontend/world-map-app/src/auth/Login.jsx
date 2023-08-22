@@ -10,8 +10,8 @@ export const Login = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className="auth-form-container">
+      <form className="login-form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
           value={email}
@@ -32,7 +32,7 @@ export const Login = () => {
         />
         <button type="submit">Log in</button>
       </form>
-      <button>Don't have an account? Register here.</button>
-    </>
+      <button className="link-btn">Don't have an account? Register here.</button>
+    </div>
   );
 };

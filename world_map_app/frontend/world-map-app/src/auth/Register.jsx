@@ -18,8 +18,8 @@ export const Register = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div class="auth-form-container">
+      <form className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
           value={email}
@@ -52,6 +52,6 @@ export const Register = () => {
 
         <button type="submit">Register</button>
       </form>
-    </>
+    </div>
   );
 };
