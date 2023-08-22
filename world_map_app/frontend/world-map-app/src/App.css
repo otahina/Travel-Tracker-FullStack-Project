@@ -8,10 +8,13 @@
 }
 
 .app-header {
-  background-color: #282c34;
-  padding: 20px;
-  text-align: center;
-  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header-links {
+  margin: 0 15px;
 }
 
 .map-container {
