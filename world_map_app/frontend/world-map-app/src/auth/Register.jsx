@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 
 export const Register = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,7 +25,7 @@ export const Register = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
-        // You can redirect or show a success message here
+        navigate('/login'); // Redirect to login page
       })
       .catch((error) => {
         console.error('Error:', error);
