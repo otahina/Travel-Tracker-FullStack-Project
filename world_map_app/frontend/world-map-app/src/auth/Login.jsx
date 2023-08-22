@@ -1,12 +1,27 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom"; 
 
-export const Login = () => {
+export const Login = ({ handleLogin }) => { // Receive handleLogin as a prop
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const navigate = useNavigate(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, pass); // Logging both email and password
+
+    // Call the handleLogin function passed down as a prop
+    handleLogin(email, pass)
+      .then(user => {
+        if (user) {
+          // Login was successful
+          console.log('Logged in:', user);
+          navigate("/");
+        } else {
+          // Login failed
+          console.log('Login failed');
+          // Optionally, show an error message to the user, etc.
+        }
+      });
   };
 
   return (
@@ -25,14 +40,14 @@ export const Login = () => {
         <input
           value={pass}
           type="password"
-          placeholder="Type your password.."
+          placeholder="Type your password..."
           id="password"
           name="password"
           onChange={(e) => setPass(e.target.value)}
         />
         <button type="submit">Log in</button>
       </form>
-      <button className="link-btn">Don't have an account? Register here.</button>
+      <Link to="/register" className="link-btn">Don't have an account? Register here.</Link>
     </div>
   );
 };

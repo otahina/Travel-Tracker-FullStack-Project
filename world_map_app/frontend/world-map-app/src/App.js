@@ -7,7 +7,6 @@ import './App.css';
 
 const Content = () => {
   const location = useLocation();
-  const [user, setUser] = useState(null); // Store user data here
 
   return (
     <div className="content">
@@ -30,17 +29,42 @@ const Content = () => {
 };
 
 const App = () => {
+  const [user, setUser] = useState(null); // Store user data here
+
+  const handleLogin = (username, password) => {
+    // Code to authenticate user goes here
+    fetch('http://localhost:8000/users/login', { method: 'POST', body: JSON.stringify({ username, password }) })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); 
+        // Assuming data.user contains the user information
+        setUser(data.user);
+      });
+  };
+
   return (
     <div className="App">
       <Router>
         <header className="app-header">
-          <h1>GlobeMarks: Where Have You Been in the World?</h1>
-          <div className="navigation">
-            <Link to="/register">Register</Link>
-            <Link to="/login">Login</Link>
-          </div>
+            <h1>GlobeMarks: Where Have You Been in the World?</h1>
+            <div className="navigation-container">
+              <div className="navigation">
+                <Link to="/register">Register</Link>
+                <Link to="/login">Login</Link>
+              </div>
+              <div className="user-info">
+                {user ? (
+                  <>
+                    <span>{user.username}</span>
+                    <img src={user.icon} alt="User Icon" />
+                  </>
+                ) : (
+                  <span>Guest</span>
+                )}
+              </div>
+            </div>
         </header>
-        <Content />
+        <Content user={user} handleLogin={handleLogin} />
       </Router>
     </div>
   );

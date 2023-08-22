@@ -17,6 +17,12 @@
   margin: 20px;
 }
 
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .navigation {
   color: white;
   text-decoration: none;
@@ -36,6 +42,13 @@
 .navigation a:hover {
   background-color: #ffffff;
   color: #2d2d2d;
+}
+
+.user-info {
+  position: right;
+  text-align: center;
+  color: white;
+  margin-left: 10px;
 }
 
 .map-container {
