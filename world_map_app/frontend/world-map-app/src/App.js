@@ -17,8 +17,8 @@ const App = () => {
       </header>
       <Routes>
         <Route exact path="/" element={<MapComponent />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
