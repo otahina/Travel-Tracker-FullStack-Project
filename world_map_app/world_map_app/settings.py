@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'travel_map',
     'rest_framework',
     'users',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'world_map_app.urls'
@@ -74,12 +76,16 @@ WSGI_APPLICATION = 'world_map_app.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+#PostgreSQL
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        "NAME": "globemarks",
+        "USER": "user2",
+        "PASSWORD": "1234",
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
 
@@ -124,3 +130,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#for handling CORS issues
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000']

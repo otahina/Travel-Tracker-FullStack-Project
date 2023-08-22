@@ -13,12 +13,26 @@ export const Register = () => {
       return;
     }
 
-    console.log("Email:", email, "Password:", password);
-    // Here you can call the registration API or any other logic required
+    fetch('http://localhost:8000/users/register/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        // You can redirect or show a success message here
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Handle the error as needed
+      });
   };
 
   return (
-    <div class="auth-form-container">
+    <div className="auth-form-container">
       <form className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input

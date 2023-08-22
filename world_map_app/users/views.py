@@ -1,12 +1,16 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.contrib.auth.models import User
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login') # Redirect to the login page
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+class RegisterView(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+        password = request.data.get('password')
+        
+        # Create a username based on the email or use another logic that fits your needs
+        username = email.split('@')[0]
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+

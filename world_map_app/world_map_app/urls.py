@@ -8,7 +8,7 @@ urlpatterns = [
     path('visited-countries/', VisitedCountryList.as_view()),  
     path('', RedirectView.as_view(url='/visited-countries/')),
     path('users/', include('django.contrib.auth.urls')),
-    path('users/', include('users.urls')),
+    path('users/', include('users.urls')), 
 ]
 
 admin.site.site_header = "My World Mark App Admin"
