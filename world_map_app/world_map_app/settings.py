@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'travel_map',
     'rest_framework',
+    'users',
 ]
 
 MIDDLEWARE = [

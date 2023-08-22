@@ -25,3 +25,4 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/visited-countries/')),
 ]
 
+admin.site.site_header = "My World Mark App Admin"
