@@ -96,6 +96,45 @@ button {
   color: blue;
 }
 
+/* Side bar */
+
+.content {
+  display: flex;
+  width: 100%;
+  min-height: 80vh; /* Set a minimum height */
+}
+
+.sidebar {
+  flex-shrink: 0;
+  width: 220px;
+  padding: 20px;
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  color: #2d2d2d;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #f0f0f0;
+}
+
+.sidebar div {
+  padding: 10px;
+}
+
+.sidebar span {
+  font-weight: bold;
+}
+
 /* for later */
 
 .App-logo {
