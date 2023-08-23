@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes, useLocation } from 'react-router-dom';
 import MapComponent from './MapComponent/MapComponent';
 import { Register } from './auth/Register';
 import { Login } from './auth/Login';
 import './App.css';
+import UserContext from './UserContext';
 
 const Content = () => {
   const location = useLocation();
@@ -29,44 +30,39 @@ const Content = () => {
 };
 
 const App = () => {
-  const [user, setUser] = useState(null); // Store user data here
+  const [user, setUser] = useState(null);
 
-  const handleLogin = (email, password) => {
-    // Code to authenticate user goes here
-    fetch('http://localhost:8000/users/login', { method: 'POST', body: JSON.stringify({ email, password }) })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data); 
-        // Assuming data.user contains the user information
-        setUser(data.user);
-      });
-  };
+  useEffect(() => {
+    console.log('User state updated:', user);
+  }, [user]);
 
   return (
-    <div className="App">
-      <Router>
-        <header className="app-header">
-            <h1>GlobeMarks: Where Have You Been in the World?</h1>
-            <div className="navigation-container">
-              <div className="navigation">
-                <Link to="/register">Register</Link>
-                <Link to="/login">Login</Link>
+    <UserContext.Provider value={{ user, setUser }}>
+      <div className="App">
+        <Router>
+          <header className="app-header">
+              <h1>GlobeMarks: Where Have You Been in the World?</h1>
+              <div className="navigation-container">
+                <div className="navigation">
+                  <Link to="/register">Register</Link>
+                  <Link to="/login">Login</Link>
+                </div>
+                <div className="user-info">
+                  {user ? (
+                    <>
+                      <span>{user.username}</span>
+                      <img src={user.icon} alt="User Icon" />
+                    </>
+                  ) : (
+                    <span>Guest</span>
+                  )}
+                </div>
               </div>
-              <div className="user-info">
-                {user ? (
-                  <>
-                    <span>{user.username}</span>
-                    <img src={user.icon} alt="User Icon" />
-                  </>
-                ) : (
-                  <span>Guest</span>
-                )}
-              </div>
-            </div>
-        </header>
-        <Content user={user} handleLogin={handleLogin} />
-      </Router>
-    </div>
+          </header>
+          <Content />
+        </Router>
+      </div>
+    </UserContext.Provider>
   );
 };
 

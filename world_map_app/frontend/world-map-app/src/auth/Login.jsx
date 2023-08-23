@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import UserContext from '../UserContext';
 
 export const Login = () => {
   const [username, setUsername] = useState(""); // Change email to username
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,10 +27,12 @@ export const Login = () => {
       }
 
       const data = await response.json();
-      // Store the token in local storage or elsewhere
+      console.log(data)
       localStorage.setItem('token', data.token);
+      setUser(data.user); // Assuming `data.user` contains the user's information
       console.log('Logged in:', data);
       navigate("/"); // Redirect to home page
+      
     } catch (error) {
       console.log('An error occurred:', error);
     }

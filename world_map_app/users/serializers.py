@@ -1,13 +1,18 @@
+# Get a request from register.jsx
+
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
+#  takes JSON string and converts it into a Python dictionary
 class CustomUserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)  # Adding password field
+    password = serializers.CharField(write_only=True)  
 
+    # settings for the class
     class Meta:
         model = get_user_model()
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'password')  # Including password in fields
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'password')  
 
+    # create a user
     def create(self, validated_data):
         # Overriding the create method to handle password hashing
         password = validated_data.pop('password')

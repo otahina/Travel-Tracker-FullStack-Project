@@ -7,8 +7,10 @@ from .serializers import CustomUserSerializer
 
 class SignupView(APIView):
     def post(self, request):
+        # request.data is JSON format, pass to the serializer to change it to Python dictionary
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
+            # user is created
             user = get_user_model().objects.create_user(**serializer.validated_data)
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key}, status=status.HTTP_201_CREATED)
@@ -23,7 +25,11 @@ class LoginView(APIView):
 
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key}, status=status.HTTP_200_OK)
+            user_serializer = get_user_model().objects.get(username=username)
+            user_data = {
+                "username": user_serializer.username,
+            }
+            return Response({"token": token.key, "user": user_data}, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 

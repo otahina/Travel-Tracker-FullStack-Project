@@ -17,13 +17,15 @@ export const Register = () => {
     }
 
     fetch('http://localhost:8000/users/register/', {
-      method: 'POST',
+      method: 'POST', // It sends a POST request to the server at the URL
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "email": email, "username": username, "password": password }), // Include username
+      // Convert the user input into JSON string 
+      body: JSON.stringify({ "email": email, "username": username, "password": password }), 
     })
-      .then((response) => response.json())
+      // response from the server and converts it from JSON into a JavaScript object.
+      .then((response) => response.json()) 
       .then((data) => {
         console.log('Success:', data);
         navigate('/login'); // Redirect to login page
