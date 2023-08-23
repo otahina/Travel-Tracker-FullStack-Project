@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState(""); // Change email to username
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -15,37 +15,36 @@ export const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email, password: password }), // Send email and password directly
+        body: JSON.stringify({ username: username, password: password }), // Send username and password directly
       });
 
       if (!response.ok) {
-        // Log the status and status text for more information
         console.log('Error with fetch:', response.status, response.statusText);
-        // Handle login failure
         console.log('Login failed');
         return;
       }
-  
+
       const data = await response.json();
+      // Store the token in local storage or elsewhere
+      localStorage.setItem('token', data.token);
       console.log('Logged in:', data);
       navigate("/"); // Redirect to home page
     } catch (error) {
-      // Log any exceptions that occurred during the fetch
       console.log('An error occurred:', error);
     }
-  };  
+  };
 
   return (
     <div className="auth-form-container">
       <form className="login-form" onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="username">Username</label>
         <input
-          value={email}
-          type="email"
-          placeholder="Type your email address..."
-          id="email"
-          name="email"
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          type="text"
+          placeholder="Type your username..."
+          id="username"
+          name="username"
+          onChange={(e) => setUsername(e.target.value)}
         />
         <label htmlFor="password">Password</label>
         <input
@@ -62,6 +61,4 @@ export const Login = () => {
     </div>
   );
 };
-
-
 

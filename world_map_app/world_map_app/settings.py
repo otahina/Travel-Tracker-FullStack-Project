@@ -137,3 +137,9 @@ CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 
 #for user model
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# for backend authentication
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
