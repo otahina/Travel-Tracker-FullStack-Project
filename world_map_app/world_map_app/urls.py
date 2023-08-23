@@ -3,6 +3,7 @@ from django.urls import path, include
 from travel_map.views import VisitedCountryList
 from django.views.generic.base import RedirectView
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('visited-countries/', VisitedCountryList.as_view()),  

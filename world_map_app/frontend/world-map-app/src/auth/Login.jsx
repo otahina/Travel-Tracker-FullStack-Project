@@ -1,37 +1,39 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-export const Login = () => { // You don't need handleLogin as a prop anymore
+export const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    try {
+      const response = await fetch('http://localhost:8000/users/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, password: pass }),
+      });
 
-    const url = "http://localhost:8000/users/login/";
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password: pass }), // Use the pass variable here
-    });
-
-    // If the request was successful, return the user data or a success message
-    if (response.ok) {
+      if (!response.ok) {
+        // Log the status and status text for more information
+        console.log('Error with fetch:', response.status, response.statusText);
+        // Handle login failure
+        console.log('Login failed');
+        return;
+      }
+  
       const data = await response.json();
-
-      // You can extract user information or other relevant details from data
       console.log('Logged in:', data);
       navigate("/");
-    } else {
-      // Handle login failure
-      console.log('Login failed');
-      // Optionally, show an error message to the user, etc.
+    } catch (error) {
+      // Log any exceptions that occurred during the fetch
+      console.log('An error occurred:', error);
     }
-  };
+  };  
 
   return (
     <div className="auth-form-container">

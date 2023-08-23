@@ -31,9 +31,9 @@ const Content = () => {
 const App = () => {
   const [user, setUser] = useState(null); // Store user data here
 
-  const handleLogin = (username, password) => {
+  const handleLogin = (email, password) => {
     // Code to authenticate user goes here
-    fetch('http://localhost:8000/users/login', { method: 'POST', body: JSON.stringify({ username, password }) })
+    fetch('http://localhost:8000/users/login', { method: 'POST', body: JSON.stringify({ email, password }) })
       .then(response => response.json())
       .then(data => {
         console.log(data); 
