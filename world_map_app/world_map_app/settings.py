@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'travel_map',
     'rest_framework',
+    'rest_framework.authtoken',
     'users',
     'corsheaders',
 ]
@@ -81,9 +82,9 @@ WSGI_APPLICATION = 'world_map_app.wsgi.application'
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        "NAME": "globemarks",
-        "USER": "user2",
-        "PASSWORD": "1234",
+        "NAME": "globemarks2",
+        "USER": "user5",
+        "PASSWORD": "oniku",
         "HOST": "localhost",
         "PORT": "",
     }

@@ -3,19 +3,19 @@ import { useNavigate, Link } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch('http://localhost:8000/users/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email, password: pass }),
+        body: JSON.stringify({ email: email, password: password }), // Send email and password directly
       });
 
       if (!response.ok) {
@@ -28,7 +28,7 @@ export const Login = () => {
   
       const data = await response.json();
       console.log('Logged in:', data);
-      navigate("/");
+      navigate("/"); // Redirect to home page
     } catch (error) {
       // Log any exceptions that occurred during the fetch
       console.log('An error occurred:', error);
@@ -49,12 +49,12 @@ export const Login = () => {
         />
         <label htmlFor="password">Password</label>
         <input
-          value={pass}
+          value={password}
           type="password"
           placeholder="Type your password..."
           id="password"
           name="password"
-          onChange={(e) => setPass(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Log in</button>
       </form>
@@ -62,3 +62,6 @@ export const Login = () => {
     </div>
   );
 };
+
+
+

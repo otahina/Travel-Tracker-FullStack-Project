@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 export const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState(""); // New state for username
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -20,7 +21,7 @@ export const Register = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: email, password: password }),
+      body: JSON.stringify({ "email": email, "username": username, "password": password }), // Include username
     })
       .then((response) => response.json())
       .then((data) => {
@@ -44,6 +45,16 @@ export const Register = () => {
           id="email"
           name="email"
           onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <label htmlFor="username">Username</label> {/* New input for username */}
+        <input
+          value={username}
+          type="text"
+          placeholder="Type your username..."
+          id="username"
+          name="username"
+          onChange={(e) => setUsername(e.target.value)}
         />
 
         <label htmlFor="password">Password</label>
