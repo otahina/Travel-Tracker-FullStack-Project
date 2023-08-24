@@ -8,22 +8,27 @@ import UserContext from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 
-const Content = () => {
+const Content = ({ isMarkingMode, toggleMarkingMode }) => { // Added props
   const location = useLocation();
 
   return (
     <div className="content">
       {location.pathname === '/' && (
         <div className="sidebar">
-          {/* Sidebar Content */}
-          <button>Mark the Country</button>
-          <button>Unmark the Country</button>
-          <button>Save</button>
-          <p>The number of countries you have visited</p>
-        </div>
+        {/* Sidebar Content */}
+        <button
+          onClick={toggleMarkingMode} // Using the prop
+          style={{ backgroundColor: isMarkingMode ? 'orange' : 'initial' }} // Using the prop
+        >
+          Mark the Country
+        </button>
+        <button>Unmark the Country</button>
+        <button>Save</button>
+        <p>The number of countries you have visited</p>
+      </div>
       )}
       <Routes>
-        <Route exact path="/" element={<MapComponent />} />
+        <Route exact path="/" element={<MapComponent isMarkingMode={isMarkingMode} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
@@ -33,6 +38,11 @@ const Content = () => {
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [isMarkingMode, setIsMarkingMode] = useState(false);
+
+  const toggleMarkingMode = () => {
+    setIsMarkingMode(!isMarkingMode);
+  };
 
   useEffect(() => {
     console.log('User state updated:', user);
@@ -61,7 +71,7 @@ const App = () => {
                 </div>
               </div>
           </header>
-          <Content />
+          <Content isMarkingMode={isMarkingMode} toggleMarkingMode={toggleMarkingMode} /> {/* Passed props */}
         </Router>
       </div>
     </UserContext.Provider>

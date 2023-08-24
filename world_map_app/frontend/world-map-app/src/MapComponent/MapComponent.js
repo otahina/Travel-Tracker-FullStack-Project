@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
+// For shaping the country border
+import countries110m from './geojson/countries-110m.json';
 
 const MapComponent = () => {
     const mapRef = useRef(null);
@@ -13,6 +15,9 @@ const MapComponent = () => {
         }).setView([51.505, -0.09], 2);
   
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstanceRef.current);
+
+        // Add the GeoJSON layer for countries
+        L.geoJSON(countries110m).addTo(mapInstanceRef.current);
       }
   
       return () => {

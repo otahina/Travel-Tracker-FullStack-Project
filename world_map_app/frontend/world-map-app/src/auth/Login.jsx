@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import UserContext from '../UserContext';
 
 export const Login = () => {
-  const [username, setUsername] = useState(""); // Change email to username
+  const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);

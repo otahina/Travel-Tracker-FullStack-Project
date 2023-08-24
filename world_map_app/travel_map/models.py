@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 
+# define  defalut user for empty user field
 def default_user_function():
     return User.objects.get(username='default_user')
 
