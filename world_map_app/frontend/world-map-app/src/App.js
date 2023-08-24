@@ -8,27 +8,37 @@ import UserContext from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 
-const Content = ({ isMarkingMode, toggleMarkingMode }) => { // Added props
+const Content = () => { // Removed unnecessary props
+  const [activeButton, setActiveButton] = useState(null); // Added state inside Content
   const location = useLocation();
 
   return (
     <div className="content">
       {location.pathname === '/' && (
         <div className="sidebar">
-        {/* Sidebar Content */}
-        <button
-          onClick={toggleMarkingMode} // Using the prop
-          style={{ backgroundColor: isMarkingMode ? 'orange' : 'initial' }} // Using the prop
-        >
-          Mark the Country
-        </button>
-        <button>Unmark the Country</button>
-        <button>Save</button>
-        <p>The number of countries you have visited</p>
-      </div>
+          <button
+            className={`button-mark ${activeButton === 'mark' ? 'active' : ''}`}
+            onClick={() => setActiveButton('mark')}
+          >
+            Mark the Country
+          </button>
+          <button
+            className={`button-mark ${activeButton === 'unmark' ? 'active' : ''}`}
+            onClick={() => setActiveButton('unmark')}
+          >
+            Unmark the Country
+          </button>
+          <button
+            className={`button-mark ${activeButton === 'save' ? 'active' : ''}`}
+            onClick={() => setActiveButton('save')}
+          >
+            Save
+          </button>
+          <p>The number of countries you have visited</p>
+        </div>
       )}
       <Routes>
-        <Route exact path="/" element={<MapComponent isMarkingMode={isMarkingMode} />} />
+        <Route exact path="/" element={<MapComponent />} /> {/* Removed isMarkingMode prop */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
@@ -38,11 +48,6 @@ const Content = ({ isMarkingMode, toggleMarkingMode }) => { // Added props
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [isMarkingMode, setIsMarkingMode] = useState(false);
-
-  const toggleMarkingMode = () => {
-    setIsMarkingMode(!isMarkingMode);
-  };
 
   useEffect(() => {
     console.log('User state updated:', user);
@@ -53,25 +58,25 @@ const App = () => {
       <div className="App">
         <Router>
           <header className="app-header">
-              <h1>GlobeMarks: Where Have You Been in the World?</h1>
-              <div className="navigation-container">
-                <div className="navigation">
-                  <Link to="/register">Register</Link>
-                  <Link to="/login">Login</Link>
-                </div>
-                <div className="user-info">
-                  {user ? (
-                    <>
-                      <span id="username">{user.username}</span>
-                      <FontAwesomeIcon icon={faCircleUser} id="user_icon" />
-                    </>
-                  ) : (
-                    <span>Guest</span>
-                  )}
-                </div>
+            <h1>GlobeMarks: Where Have You Been in the World?</h1>
+            <div className="navigation-container">
+              <div className="navigation">
+                <Link to="/register">Register</Link>
+                <Link to="/login">Login</Link>
               </div>
+              <div className="user-info">
+                {user ? (
+                  <>
+                    <span id="username">{user.username}</span>
+                    <FontAwesomeIcon icon={faCircleUser} id="user_icon" />
+                  </>
+                ) : (
+                  <span>Guest</span>
+                )}
+              </div>
+            </div>
           </header>
-          <Content isMarkingMode={isMarkingMode} toggleMarkingMode={toggleMarkingMode} /> {/* Passed props */}
+          <Content /> {/* Removed unnecessary props */}
         </Router>
       </div>
     </UserContext.Provider>
@@ -79,3 +84,4 @@ const App = () => {
 };
 
 export default App;
+

@@ -107,7 +107,7 @@ input {
   margin: 10px 0;
 }
 
-button {
+.button-submit {
   border: none;
   background: radial-gradient(circle at 10% 20%, rgb(67, 144, 233) 0%, rgb(78, 226, 198) 90.1%);
   padding: 10px;
@@ -138,24 +138,33 @@ button {
   flex-shrink: 0;
   width: 220px;
   padding: 20px;
-  background-color: #2d2d2d;
+  background-color: #2d2d2d; /* Dark gray background for sidebar */
   color: #ffffff;
 }
 
-.sidebar button {
+.button-mark {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
-  background-color: #ffffff;
-  color: #2d2d2d;
+  margin-top: 10px;
+  height: 50px;
+  margin-bottom: 20px;
+  background: radial-gradient(circle at 10% 20%, rgb(67, 144, 233) 0%, rgb(78, 226, 198) 90.1%);
+  color: white;
   border: none;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 18px;
 }
 
-.sidebar button:hover {
-  background-color: #f0f0f0;
+.button-mark.active {
+  background: linear-gradient(99deg, rgb(255, 166, 0) 14.7%, rgb(255, 99, 97) 73%);
 }
+
+.button-mark:hover {
+  background: linear-gradient(99deg, rgb(255, 166, 0) 14.7%, rgb(255, 99, 97) 73%);
+}
+
 
 .sidebar div {
   padding: 10px;

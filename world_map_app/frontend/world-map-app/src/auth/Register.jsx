@@ -79,7 +79,7 @@ export const Register = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
-        <button type="submit">Register</button>
+        <button className="button-submit" type="submit">Register</button>
       </form>
     </div>
   );
