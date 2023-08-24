@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import CustomUserSerializer
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class SignupView(APIView):
     def post(self, request):
@@ -32,9 +34,17 @@ class LoginView(APIView):
             return Response({"token": token.key, "user": user_data}, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+        
 
+class LogoutView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
-
+    def post(self, request):
+        # Invalidate the token
+        request.user.auth_token.delete()
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 

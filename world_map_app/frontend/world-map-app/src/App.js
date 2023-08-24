@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Route, Link, Routes, useLocation } from 'react
 import MapComponent from './MapComponent/MapComponent';
 import { Register } from './auth/Register';
 import { Login } from './auth/Login';
+import { Logout } from './auth/Logout';
 import './App.css';
 import UserContext from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
+import logoImage from './images/icon.png'; 
 
 const Content = ({ visitedCountries, markCountry }) => { // Removed unnecessary props
   const [activeButton, setActiveButton] = useState(null); // Added state inside Content
@@ -41,6 +43,7 @@ const Content = ({ visitedCountries, markCountry }) => { // Removed unnecessary 
         <Route exact path="/" element={<MapComponent visitedCountries={visitedCountries} markCountry={markCountry} activeButton={activeButton} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </div>
   );
@@ -76,11 +79,15 @@ const App = () => {
       <div className="App">
         <Router>
           <header className="app-header">
-            <h1>GlobeMarks: Where Have You Been in the World?</h1>
+            <Link to="/">
+              <img src={logoImage} alt="GlobeMarks Logo" id="logo" />
+            </Link>
+            <h1><span className="main-title">GlobeMarks</span><span id="sub-title">Your Personalized World Exploring History</span></h1>
             <div className="navigation-container">
               <div className="navigation">
                 <Link to="/register">Register</Link>
                 <Link to="/login">Login</Link>
+                <Link to="/logout">Logout</Link>
               </div>
               <div className="user-info">
                 {user ? (
