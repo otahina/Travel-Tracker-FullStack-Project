@@ -5,7 +5,8 @@ import { Register } from './auth/Register';
 import { Login } from './auth/Login';
 import './App.css';
 import UserContext from './UserContext';
-import userIcon from './images/user_icon.png'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 
 const Content = () => {
   const location = useLocation();
@@ -51,8 +52,8 @@ const App = () => {
                 <div className="user-info">
                   {user ? (
                     <>
-                      <span>{user.username}</span>
-                      <img src={userIcon} alt="User Icon" />
+                      <span id="username">{user.username}</span>
+                      <FontAwesomeIcon icon={faCircleUser} id="user_icon" />
                     </>
                   ) : (
                     <span>Guest</span>

@@ -49,6 +49,17 @@
   text-align: center;
   color: white;
   margin-left: 10px;
+  font-size: 20px;
+}
+
+#user-name {
+  padding-bottom: 10px;
+}
+
+#user_icon {
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
 }
 
 .map-container {
