@@ -5,6 +5,7 @@ import { Register } from './auth/Register';
 import { Login } from './auth/Login';
 import './App.css';
 import UserContext from './UserContext';
+import userIcon from './images/user_icon.png'; 
 
 const Content = () => {
   const location = useLocation();
@@ -51,7 +52,7 @@ const App = () => {
                   {user ? (
                     <>
                       <span>{user.username}</span>
-                      <img src={user.icon} alt="User Icon" />
+                      <img src={userIcon} alt="User Icon" />
                     </>
                   ) : (
                     <span>Guest</span>
