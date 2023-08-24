@@ -31,14 +31,15 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton }) => {
           style: geoJsonStyle,
           onEachFeature: (feature, layer) => {
             layer.on('click', () => {
-              if (activeButton === 'mark') {
-                console.log('Clicked country:', feature.properties.ADMIN, feature.properties.ISO_A3);
-                markCountry(feature.properties.ISO_A3);
+              const countryId = feature.properties.ISO_A3;
+              if (activeButton === 'mark' || activeButton === 'unmark') {
+                console.log('Clicked country:', feature.properties.ADMIN, countryId);
+                markCountry(countryId, activeButton); // Passing activeButton as the second argument
               } else {
-                console.log('Marking disabled'); 
+                console.log('Marking disabled');
               }
             });
-          },
+          },          
         }).addTo(mapInstanceRef.current);
       });    
     }

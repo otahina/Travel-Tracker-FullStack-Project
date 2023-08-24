@@ -48,15 +48,23 @@ const Content = ({ visitedCountries, markCountry }) => { // Removed unnecessary 
 
 const App = () => {
   const [user, setUser] = useState(null);
+  // Use state to temporally store the data 
   const [visitedCountries, setVisitedCountries] = useState(new Set());
 
   // country id as identifier, checks if it is already visited or not
-  const markCountry = (countryId) => {
-    if (visitedCountries.has(countryId)) {
-      alert('This country is already marked!');
-      return;
+  const markCountry = (countryId, activeButton) => {
+    // Create the copy of set of visitied country for updating data
+    const updatedVisitedCountries = new Set(visitedCountries);
+    if (activeButton === 'mark') {
+      if (updatedVisitedCountries.has(countryId)) {
+        alert('This country is already marked!');
+        return;
+      }
+      updatedVisitedCountries.add(countryId);
+    } else if (activeButton === 'unmark') {
+      updatedVisitedCountries.delete(countryId);
     }
-    setVisitedCountries(new Set([...visitedCountries, countryId]));
+    setVisitedCountries(updatedVisitedCountries);
   };
 
   useEffect(() => {
