@@ -14,15 +14,22 @@ Using this app, users can create a personalized record of their journeys. All ma
 ## Technologies 🛠️
 
 * **Frontend**:
+  ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+  ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
   * **React**: Used for building the user interface, including components like the interactive map.
   * **Leaflet**: A JavaScript library for creating interactive maps, utilized for the main mapping feature.
   * **FontAwesome**: Icon library used for visually appealing icons in the user interface.
 
 * **Backend**:
+  ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+  ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+  ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
   * **Django**: A high-level Python Web framework that encourages rapid development and clean, pragmatic design.
   * **PostgreSQL**: The database system used for storing user data and travel marks securely.
 
 * **Version Control**:
+ ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
   * **Git**: Used for version control, allowing for efficient collaboration and change tracking.
   * **GitHub**: Platform for hosting the codebase and managing collaboration.
 
