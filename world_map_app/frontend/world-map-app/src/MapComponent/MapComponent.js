@@ -1,15 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
-import '../libs/leaflet/leaflet.css'; // Importing the Leaflet CSS
-// Importing the GeoJSON file
-//import * as countries110m from '../geojson/countries.geojson';
+import '../libs/leaflet/leaflet.css';
 
-const MapComponent = () => {
+const MapComponent = ({ visitedCountries, markCountry, activeButton }) => {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
 
   useEffect(() => {
-    // Only initialize the map if it hasn't been initialized
     if (!mapInstanceRef.current && mapRef.current) {
       mapInstanceRef.current = L.map(mapRef.current, {
         minZoom: 2.2,
@@ -17,27 +14,42 @@ const MapComponent = () => {
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstanceRef.current);
 
-    const geoJsonStyle = {
-        color: 'black', // Set the border color to black
-        weight: 1,      // Set the border thickness (optional)
-    };
-
-    // Fetch the GeoJSON file
-    fetch('/geojson/countries.geojson')
-      .then(response => response.json())
-      .then(data => {
-        L.geoJSON(data, { style: geoJsonStyle }).addTo(mapInstanceRef.current);
+      const geoJsonStyle = (feature) => ({
+        color: visitedCountries.has(feature.properties.ISO_A3) ? 'orange' : 'black',
+        weight: 2,      // Thickness of the border
+        opacity: 0.8,     // Opacity of the border
+        fillColor: visitedCountries.has(feature.properties.ISO_A3) ? 'yellow' : 'gray', // Fill color
+        fillOpacity: 0.8 // Opacity of the fill color
       });
+
+      // Fetch the GeoJSON file
+      // GeoJson allows to access to the feture data associated with each country
+      fetch('/geojson/countries.geojson')
+      .then((response) => response.json())
+      .then((data) => {
+        L.geoJSON(data, {
+          style: geoJsonStyle,
+          onEachFeature: (feature, layer) => {
+            layer.on('click', () => {
+              if (activeButton === 'mark') {
+                console.log('Clicked country:', feature.properties.ADMIN, feature.properties.ISO_A3);
+                markCountry(feature.properties.ISO_A3);
+              } else {
+                console.log('Marking disabled'); 
+              }
+            });
+          },
+        }).addTo(mapInstanceRef.current);
+      });    
     }
 
     return () => {
-      // Cleanup function to remove the map instance if it exists
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
-        mapInstanceRef.current = null; // Reset the map instance reference
+        mapInstanceRef.current = null;
       }
     };
-  }, []); // Empty dependency array ensures this runs only on mount and unmount
+  }, [visitedCountries, markCountry, activeButton]); // Added dependencies to update styles
 
   return <div ref={mapRef} style={{ height: '100vh', width: '100%', border: '1px solid red' }} />;
 };

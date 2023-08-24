@@ -8,7 +8,7 @@ import UserContext from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 
-const Content = () => { // Removed unnecessary props
+const Content = ({ visitedCountries, markCountry }) => { // Removed unnecessary props
   const [activeButton, setActiveButton] = useState(null); // Added state inside Content
   const location = useLocation();
 
@@ -38,7 +38,7 @@ const Content = () => { // Removed unnecessary props
         </div>
       )}
       <Routes>
-        <Route exact path="/" element={<MapComponent />} /> {/* Removed isMarkingMode prop */}
+        <Route exact path="/" element={<MapComponent visitedCountries={visitedCountries} markCountry={markCountry} activeButton={activeButton} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
@@ -48,6 +48,16 @@ const Content = () => { // Removed unnecessary props
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [visitedCountries, setVisitedCountries] = useState(new Set());
+
+  // country id as identifier, checks if it is already visited or not
+  const markCountry = (countryId) => {
+    if (visitedCountries.has(countryId)) {
+      alert('This country is already marked!');
+      return;
+    }
+    setVisitedCountries(new Set([...visitedCountries, countryId]));
+  };
 
   useEffect(() => {
     console.log('User state updated:', user);
@@ -76,7 +86,7 @@ const App = () => {
               </div>
             </div>
           </header>
-          <Content /> {/* Removed unnecessary props */}
+          <Content visitedCountries={visitedCountries} markCountry={markCountry} />
         </Router>
       </div>
     </UserContext.Provider>
