@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import logoImage from './images/icon.png'; 
 
-const Content = ({ visitedCountries, markCountry }) => { // Removed unnecessary props
-  const [activeButton, setActiveButton] = useState(null); // Added state inside Content
+const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegisterMessage,  activeButton,
+  setActiveButton  }) => { 
   const location = useLocation();
 
   return (
@@ -32,10 +32,18 @@ const Content = ({ visitedCountries, markCountry }) => { // Removed unnecessary 
           </button>
           <button
             className={`button-mark ${activeButton === 'save' ? 'active' : ''}`}
-            onClick={() => setActiveButton('save')}
+            onClick={() => {
+              setActiveButton('save');
+              saveVisitedCountries(); // Call the save function when clicking the save button
+            }}
           >
             Save
           </button>
+          {showRegisterMessage && (
+            <p id="register-show-message">
+              <Link id="link-to-register" to="/register">Register now</Link> to save your history
+            </p>
+          )}
           <p>The number of countries you have visited</p>
         </div>
       )}
@@ -50,9 +58,14 @@ const Content = ({ visitedCountries, markCountry }) => { // Removed unnecessary 
 };
 
 const App = () => {
+  // For remembering user who is logging in
   const [user, setUser] = useState(null);
-  // Use state to temporally store the data 
+  // Use state to temporally store visited countries
   const [visitedCountries, setVisitedCountries] = useState(new Set());
+  // For user not registered yet
+  const [showRegisterMessage, setShowRegisterMessage] = useState(false); 
+  // For clicked button
+  const [activeButton, setActiveButton] = useState(null); 
 
   // country id as identifier, checks if it is already visited or not
   const markCountry = (countryId, activeButton) => {
@@ -67,12 +80,56 @@ const App = () => {
     } else if (activeButton === 'unmark') {
       updatedVisitedCountries.delete(countryId);
     }
+    // Updating the state of visitedcountries with the set, updatedVisitedCountries
     setVisitedCountries(updatedVisitedCountries);
   };
 
+  const saveVisitedCountries = async () => {
+    if (user) {
+      try {
+        // Convert the set of visited countries to an array
+        const countryArray = Array.from(visitedCountries);
+  
+        // Create a suitable structure for your backend, e.g., an array of objects
+        const countryData = countryArray.map(country => {
+          return { country_name: country }; // Assuming country is a name or identifier you want to send
+        });
+  
+        const response = await fetch('http://localhost:8000/visited-countries/', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(countryData),
+        });
+        console.log(await response.json()); // For debug
+        if (response.ok) {
+          console.log('Countries saved successfully');
+        } else {
+          console.log('Failed to save countries');
+        }
+      } catch (error) {
+        console.log('An error occurred:', error);
+      }
+    } else {
+      setShowRegisterMessage(true); // Show register message if not logged in
+    }
+  };  
+  // after the user logs in for the first time, reset the page
+  const resetState = () => {
+    setVisitedCountries(new Set());
+    setActiveButton(null);
+  };
+  
   useEffect(() => {
+    if (user) {
+      resetState();
+      setShowRegisterMessage(false);
+    }
     console.log('User state updated:', user);
   }, [user]);
+
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -96,12 +153,22 @@ const App = () => {
                     <FontAwesomeIcon icon={faCircleUser} id="user_icon" />
                   </>
                 ) : (
-                  <span>Guest</span>
+                  <>
+                    <span>Guest</span>
+                    <FontAwesomeIcon icon={faCircleUser} id="user_icon" />
+                  </>
                 )}
               </div>
             </div>
           </header>
-          <Content visitedCountries={visitedCountries} markCountry={markCountry} />
+          <Content 
+          visitedCountries={visitedCountries} 
+          markCountry={markCountry}
+          saveVisitedCountries={saveVisitedCountries} 
+          showRegisterMessage={showRegisterMessage}
+          activeButton={activeButton}
+          setActiveButton={setActiveButton}
+          />
         </Router>
       </div>
     </UserContext.Provider>

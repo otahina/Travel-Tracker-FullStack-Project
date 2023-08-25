@@ -9,7 +9,7 @@ def default_user_function():
 class VisitedCountry(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=default_user_function)
     country_name = models.CharField(max_length=100)
-    date_of_visit = models.DateField()
+    date_of_visit = models.DateField(null=True)
 
     def __str__(self):
         return self.country_name
