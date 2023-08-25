@@ -52,7 +52,7 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton }) => {
     };
   }, [visitedCountries, markCountry, activeButton]); // Added dependencies to update styles
 
-  return <div ref={mapRef} style={{ height: '100vh', width: '100%', border: '1px solid red' }} />;
+  return <div ref={mapRef} style={{ height: '100vh', width: '100%', border: '2px solid rgb(255, 166, 0)'}} />;
 };
 
 export default MapComponent;

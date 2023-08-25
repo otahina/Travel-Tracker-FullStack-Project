@@ -1,12 +1,11 @@
 from django.contrib import admin
-from django.urls import path, include, re_path
-from travel_map.views import VisitedCountryList
+from django.urls import path, include
 from django.views.generic.base import RedirectView
-
+from travel_map.views import create_visited_countries
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('visited-countries/', VisitedCountryList.as_view()),  
+    path('visited-countries/', create_visited_countries), 
     path('', RedirectView.as_view(url='/visited-countries/')),
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('users.urls')), 

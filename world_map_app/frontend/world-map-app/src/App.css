@@ -101,12 +101,18 @@
   font-family: 'Arial', sans-serif;
 }
 
-.leaflet-control-zoom, .leaflet-control-layers, .leaflet-bar a, .leaflet-bar a:hover {
-  background-image: url(https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/);
-  color: #333;
-}
+
 
 /* Login, Register */
+
+.login-register-container {
+  width: 100%;
+  height: 100vh;
+  background: url('./images/map-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
 .auth-form-container {
   background: rgba(255,255, 255,0.8);

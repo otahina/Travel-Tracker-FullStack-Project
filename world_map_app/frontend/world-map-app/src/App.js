@@ -90,7 +90,7 @@ const App = () => {
         // Convert the set of visited countries to an array
         const countryArray = Array.from(visitedCountries);
   
-        // Create a suitable structure for your backend, e.g., an array of objects
+        // Create a suitable structure for backend, e.g., an array of objects
         const countryData = countryArray.map(country => {
           return { country_name: country }; // Assuming country is a name or identifier you want to send
         });

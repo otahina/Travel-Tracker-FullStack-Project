@@ -35,3 +35,5 @@ Using this app, user can create a personalized record of their journeys. All mar
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 * **Git**: Used for version control, allowing for efficient collaboration and change tracking.
 * **GitHub**: Platform for hosting the codebase and managing collaboration.
+
+## How to use this project on your local machine 🩵

@@ -37,50 +37,52 @@ export const Register = () => {
   };
 
   return (
-    <div className="auth-form-container">
-      <form className="register-form" onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          value={email}
-          type="email"
-          placeholder="Type your email address..."
-          id="email"
-          name="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <div className="login-register-container">
+      <div className="auth-form-container">
+        <form className="register-form" onSubmit={handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+            value={email}
+            type="email"
+            placeholder="Type your email address..."
+            id="email"
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <label htmlFor="username">Username</label> {/* New input for username */}
-        <input
-          value={username}
-          type="text"
-          placeholder="Type your username..."
-          id="username"
-          name="username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
+          <label htmlFor="username">Username</label> {/* New input for username */}
+          <input
+            value={username}
+            type="text"
+            placeholder="Type your username..."
+            id="username"
+            name="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-        <label htmlFor="password">Password</label>
-        <input
-          value={password}
-          type="password"
-          placeholder="Type your password..."
-          id="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <label htmlFor="password">Password</label>
+          <input
+            value={password}
+            type="password"
+            placeholder="Type your password..."
+            id="password"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          value={confirmPassword}
-          type="password"
-          placeholder="Confirm your password..."
-          id="confirmPassword"
-          name="confirmPassword"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            value={confirmPassword}
+            type="password"
+            placeholder="Confirm your password..."
+            id="confirmPassword"
+            name="confirmPassword"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
 
-        <button className="button-submit" type="submit">Register</button>
-      </form>
+          <button className="button-submit" type="submit">Register</button>
+        </form>
+      </div>
     </div>
   );
 };
