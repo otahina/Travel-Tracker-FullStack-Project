@@ -7,12 +7,13 @@ export const Register = () => {
   const [username, setUsername] = useState(""); // New state for username
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setPasswordsMatch(false); 
       return;
     }
 
@@ -77,8 +78,14 @@ export const Register = () => {
             placeholder="Confirm your password..."
             id="confirmPassword"
             name="confirmPassword"
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              setPasswordsMatch(true); // Reset error message on change
+            }}
           />
+
+          {/* Render error message if passwords do not match */}
+          {!passwordsMatch && <div style={{ color: 'red'}}>Passwords do not match!</div>}
 
           <button className="button-submit" type="submit">Register</button>
         </form>

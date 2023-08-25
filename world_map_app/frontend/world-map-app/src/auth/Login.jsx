@@ -5,11 +5,14 @@ import UserContext from '../UserContext';
 export const Login = () => {
   const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState("");
+  // For error for failing log in
+  const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoginError(false);
 
     try {
       const response = await fetch('http://localhost:8000/users/login/', {
@@ -21,7 +24,7 @@ export const Login = () => {
       });
 
       if (!response.ok) {
-        console.log('Error with fetch:', response.status, response.statusText);
+        setLoginError(true);
         console.log('Login failed');
         return;
       }
@@ -42,6 +45,7 @@ export const Login = () => {
     <div className="login-register-container">
       <div className="auth-form-container-login">
         <form className="login-form" onSubmit={handleSubmit}>
+        {loginError && <div style={{ color: 'red' }}>Username or password is incorrect!</div>}
           <label htmlFor="username">Username</label>
           <input
             value={username}

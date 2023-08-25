@@ -6,7 +6,6 @@ import { Login } from './auth/Login';
 import { Logout } from './auth/Logout';
 import './App.css';
 import UserContext from './UserContext';
-import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import logoImage from './images/icon.png'; 
 import UserIcon from './images/user-icon.png'; 
 
@@ -44,7 +43,7 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
               <Link id="link-to-register" to="/register">Register now</Link> to save your history
             </p>
           )}
-          <p>The number of countries you have visited</p>
+          <p>The number of countries you have visited is 0 out of 195</p>
         </div>
       )}
       <Routes>
