@@ -39,29 +39,31 @@ export const Login = () => {
   };
 
   return (
-    <div className="auth-form-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          value={username}
-          type="text"
-          placeholder="Type your username..."
-          id="username"
-          name="username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          value={password}
-          type="password"
-          placeholder="Type your password..."
-          id="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="button-submit" type="submit">Log in</button>
-      </form>
-      <Link to="/register" className="link-btn">Don't have an account? Register here.</Link>
+    <div className="login-register-container">
+      <div className="auth-form-container-login">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label htmlFor="username">Username</label>
+          <input
+            value={username}
+            type="text"
+            placeholder="Type your username..."
+            className="username-reg"
+            name="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            value={password}
+            type="password"
+            placeholder="Type your password..."
+            className="password-reg"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="button-submit" type="submit">Log in</button>
+        </form>
+        <Link to="/register" className="link-btn">Don't have an account? Register here.</Link>
+      </div>
     </div>
   );
 };

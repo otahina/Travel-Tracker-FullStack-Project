@@ -38,8 +38,8 @@
 }
 
 #logo {
-    height: 80px; 
-    margin-left: 30px;
+    height: 85px; 
+    margin-left: 15px;
     vertical-align: middle;
 }
 
@@ -83,11 +83,15 @@
   padding-bottom: 10px;
 }
 
-#user_icon {
-  width: 40px;
-  height: 40px;
+#user-icon {
+  width: 60px;
+  height: 60px;
   margin-left: 10px;
   margin-right: 5px;
+}
+
+#guest {
+  color: rgb(255, 140, 0);
 }
 
 .map-container {
@@ -114,17 +118,30 @@
   background-position: center;
 }
 
-.auth-form-container {
-  background: rgba(255,255, 255,0.8);
+.auth-form-container-login {
+  background: rgba(255,255, 255,0.7);
   padding: 30px;
   border-radius: 10px;
   margin-top: 100px;
   justify-content: center;
   align-items: center;
-  height: 380px;
+  height: 350px;
   width: 350px;
   position: relative;
-  left: 450px;
+  left: 500px;
+}
+
+.auth-form-container-register {
+  background: rgba(255,255, 255,0.7);
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 80px;
+  justify-content: center;
+  align-items: center;
+  height: 460px;
+  width: 350px;
+  position: relative;
+  left: 500px;
 }
 
 .auth-name-container, .login-form, .register-form {
@@ -137,27 +154,42 @@ label {
   padding: 10px;
 }
 
-input {
-  margin: 10px 0;
+.username-reg, .password-reg, #email, #confirmPassword {
+  margin: 10px;
+  height: 35px;
+  border-radius: 10px;
+  border: none;
+  background: rgb(255, 255, 255);
 }
 
 .button-submit {
   border: none;
   background: radial-gradient(circle at 10% 20%, rgb(67, 144, 233) 0%, rgb(78, 226, 198) 90.1%);
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 30px;
   cursor: pointer;
-  margin: 10px;
+  margin: 30px 10px 10px 10px;
+  width: 300px;
+  position: relative;
+  left: 10px;
+  height: 50px;
+}
+
+.button-submit:hover {
+  background: linear-gradient(99deg, rgb(255, 166, 0) 14.7%, rgb(255, 99, 97) 73%);
 }
 
 .link-btn {
   background: none;
   color: black;
-  text-align: underline;
+  height: 50px;
+  position: relative;
+  top: 30px;
+  padding-left: 30px;
 }
 
 .link-btn:hover{
-  color: blue;
+  color: rgb(67, 144, 233);
 }
 
 /* Side bar */

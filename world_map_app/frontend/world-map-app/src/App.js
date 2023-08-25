@@ -6,9 +6,9 @@ import { Login } from './auth/Login';
 import { Logout } from './auth/Logout';
 import './App.css';
 import UserContext from './UserContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import logoImage from './images/icon.png'; 
+import UserIcon from './images/user-icon.png'; 
 
 const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegisterMessage,  activeButton,
   setActiveButton  }) => { 
@@ -117,8 +117,16 @@ const App = () => {
       setShowRegisterMessage(true); // Show register message if not logged in
     }
   };  
+  
+  // after the user logs in for the first time, reset the page
+  const resetState = () => {
+    setVisitedCountries(new Set());
+    setActiveButton(null);
+  };
+  
+  useEffect(() => {
 
-  // For retrieving the visited countries from backend
+      // For retrieving the visited countries from backend
   const fetchVisitedCountries = async () => {
     if (user) {
       try {
@@ -136,14 +144,6 @@ const App = () => {
       }
     }
   };
-  
-  // after the user logs in for the first time, reset the page
-  const resetState = () => {
-    setVisitedCountries(new Set());
-    setActiveButton(null);
-  };
-  
-  useEffect(() => {
     if (user) {
       resetState();
       setShowRegisterMessage(false);
@@ -172,12 +172,12 @@ const App = () => {
                 {user ? (
                   <>
                     <span id="username">{user.username}</span>
-                    <FontAwesomeIcon icon={faCircleUser} id="user_icon" />
+                    <img src={UserIcon} alt="User" id="user-icon" />
                   </>
                 ) : (
                   <>
-                    <span>Guest</span>
-                    <FontAwesomeIcon icon={faCircleUser} id="user_icon" />
+                    <span id="guest">Guest</span>
+                    <img src={UserIcon} alt="User" id="user-icon" />
                   </>
                 )}
               </div>

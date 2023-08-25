@@ -38,7 +38,7 @@ export const Register = () => {
 
   return (
     <div className="login-register-container">
-      <div className="auth-form-container">
+      <div className="auth-form-container-register">
         <form className="register-form" onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input
@@ -55,7 +55,7 @@ export const Register = () => {
             value={username}
             type="text"
             placeholder="Type your username..."
-            id="username"
+            className="username-reg"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -65,7 +65,7 @@ export const Register = () => {
             value={password}
             type="password"
             placeholder="Type your password..."
-            id="password"
+            className="password-reg"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
           />
