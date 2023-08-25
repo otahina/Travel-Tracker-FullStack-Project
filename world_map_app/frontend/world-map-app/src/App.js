@@ -87,9 +87,10 @@ const App = () => {
   const saveVisitedCountries = async () => {
     if (user) {
       try {
+        console.log('Visited Countries as Set:', visitedCountries); // For debug
         // Convert the set of visited countries to an array
-        const countryArray = Array.from(visitedCountries);
-  
+        const countryArray = Array.from(visitedCountries); // FUr debug
+        console.log('Visited Countries as Array:', countryArray);
         // Create a suitable structure for backend, e.g., an array of objects
         const countryData = countryArray.map(country => {
           return { country_name: country }; // Assuming country is a name or identifier you want to send

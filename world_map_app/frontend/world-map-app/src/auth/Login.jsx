@@ -29,7 +29,7 @@ export const Login = () => {
       const data = await response.json();
       console.log(data)
       localStorage.setItem('token', data.token);
-      setUser(data.user); // Assuming `data.user` contains the user's information
+      setUser(data.user); 
       console.log('Logged in:', data);
       navigate("/"); // Redirect to home page
       

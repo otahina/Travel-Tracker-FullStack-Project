@@ -79,6 +79,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'world_map_app.wsgi.application'
 
+# for authentication
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
 
 # Database
 #PostgreSQL

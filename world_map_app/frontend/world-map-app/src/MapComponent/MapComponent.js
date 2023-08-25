@@ -10,7 +10,11 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton }) => {
     if (!mapInstanceRef.current && mapRef.current) {
       mapInstanceRef.current = L.map(mapRef.current, {
         minZoom: 2.2,
-      }).setView([51.505, -0.09], 2);
+      }).setView([25.505, -0.09], 2);
+
+      //　Max bound for horizontal moving
+      const bounds = L.latLngBounds([[82, -180], [-82, 180]]);
+      mapInstanceRef.current.setMaxBounds(bounds);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstanceRef.current);
 
