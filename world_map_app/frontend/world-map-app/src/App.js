@@ -117,6 +117,26 @@ const App = () => {
       setShowRegisterMessage(true); // Show register message if not logged in
     }
   };  
+
+  // For retrieving the visited countries from backend
+  const fetchVisitedCountries = async () => {
+    if (user) {
+      try {
+        const response = await fetch('http://localhost:8000/visited-countries/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`,
+          },
+        });
+        const data = await response.json();
+        const countrySet = new Set(data.map(item => item.country_name));
+        setVisitedCountries(countrySet);
+      } catch (error) {
+        console.log('An error occurred:', error);
+      }
+    }
+  };
+  
   // after the user logs in for the first time, reset the page
   const resetState = () => {
     setVisitedCountries(new Set());
@@ -127,6 +147,7 @@ const App = () => {
     if (user) {
       resetState();
       setShowRegisterMessage(false);
+      fetchVisitedCountries();
     }
     console.log('User state updated:', user);
   }, [user]);
