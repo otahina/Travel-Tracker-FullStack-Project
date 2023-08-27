@@ -7,6 +7,7 @@ from .serializers import CustomUserSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+
 class SignupView(APIView):
     def post(self, request):
         # request.data is JSON format, pass to the serializer to change it to Python dictionary

@@ -4,12 +4,15 @@ from .serializers import VisitedCountrySerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from .models import VisitedCountry
+from django.contrib.auth import get_user_model
 
-@api_view(['GET', 'POST'])
+# GET for retrieving data from the server, POST for sendind data to the server to update data.
+# PATCH for partial update to data in the server
+@api_view(['GET', 'POST', 'PATCH'])
 @permission_classes([IsAuthenticated])
 def visited_countries(request):
+    # For updating list of visited countries
     if request.method == 'POST':
-        # Assuming request.data is a list
         countries = request.data
         # Delete the existing countries for the user
         VisitedCountry.objects.filter(user=request.user).delete()
@@ -25,7 +28,27 @@ def visited_countries(request):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({'message': 'Countries saved successfully'}, status=status.HTTP_201_CREATED)
+    # For retrieving the list of visited countries
     elif request.method == 'GET':
         countries = VisitedCountry.objects.filter(user=request.user)
         serializer = VisitedCountrySerializer(countries, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    # For updating home country data
+    elif request.method == 'PATCH':
+        new_home_country = request.data.get('home_country', None)
+
+        if new_home_country is None:
+            return Response({'error': 'Home country not provided'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Update the home_country field for the authenticated user
+        user = request.user
+        user.home_country = new_home_country
+        user.save()
+
+        return Response({'message': 'Home country updated successfully'}, status=status.HTTP_200_OK)
+    
+    else:
+        return Response({'error': 'Method not supported'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+

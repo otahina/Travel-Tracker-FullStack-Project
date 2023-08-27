@@ -204,7 +204,7 @@ label {
   flex-shrink: 0;
   width: 220px;
   padding: 20px;
-  background-color: #2d2d2d; /* Dark gray background for sidebar */
+  background-color: #2d2d2d; 
   color: #ffffff;
 }
 
@@ -252,6 +252,10 @@ label {
 
 #link-to-register:hover{
   color: rgb(67, 144, 233);
+}
+
+.home-country-container {
+  height: 200px;
 }
 
 /* for later */

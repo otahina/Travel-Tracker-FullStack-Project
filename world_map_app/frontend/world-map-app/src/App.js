@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes, useLocation } from 'react-router-dom';
+import Select from 'react-select';
+import { getNames } from 'country-list';
 import MapComponent from './MapComponent/MapComponent';
 import { Register } from './auth/Register';
 import { Login } from './auth/Login';
@@ -12,6 +14,12 @@ import UserIcon from './images/user-icon.png';
 const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegisterMessage,  activeButton,
   setActiveButton  }) => { 
   const location = useLocation();
+  // For setting user home country 
+  const [homeCountry, setHomeCountry] = useState(null);
+
+  // Automatically populate countryOptions using the country-list package
+  const countryNames = getNames();
+  const countryOptions = countryNames.map((name) => ({ value: name, label: name }));  
 
   return (
     <div className="content">
@@ -44,6 +52,44 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
             </p>
           )}
           <p>The number of countries you have visited is 0 out of 195</p>
+          <div className="home-country-container">
+            <p>Your Home Country</p>
+            <Select
+              value={homeCountry}
+              onChange={(selectedOption) => setHomeCountry(selectedOption)}
+              options={countryOptions}
+              styles={{
+                option: (provided, state) => ({
+                  ...provided,
+                  fontSize: '18px',  
+                  color: state.isSelected ? 'white' : 'black',  // Change text color
+                  backgroundColor: state.isSelected ? 'blue' : 'none', // Change background color on selection
+                }),
+                control: (provided) => ({
+                  ...provided,
+                  height: '50px',
+                  padding: '0'
+                }),
+                valueContainer: (provided) => ({
+                  ...provided,
+                  top: '-20px'
+                }),
+                indicatorsContainer: (provided) => ({
+                  ...provided,
+                  top: '-100px',
+                  padding: '10px',
+                  margin: '0'
+                }),
+                // style for list
+                menu: (provided) => ({ 
+                  ...provided, 
+                  maxHeight: '60px', // set max height
+                  overflowY: 'auto', // add scroll if needed
+                  width: '170px'
+                }),
+              }}
+            />
+          </div>
         </div>
       )}
       <Routes>
