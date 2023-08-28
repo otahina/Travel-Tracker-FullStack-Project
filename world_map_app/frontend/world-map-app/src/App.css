@@ -255,8 +255,35 @@ label {
 }
 
 .home-country-container {
-  height: 200px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;  
+  align-items: flex-start;
 }
+
+.home-country-header {
+  display: flex;
+  align-items: center;
+}
+
+.home-country-text {
+  margin: 0;
+  width: 150px;
+}
+
+.home-country-image {
+  height: 70px;
+  width: 120px;
+  position: relative;
+  left: -30px;
+}
+
+.home-country-selection {
+  display: flex;
+  align-items: center;
+}
+
 
 /* for later */
 

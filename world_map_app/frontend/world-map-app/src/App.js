@@ -8,18 +8,42 @@ import { Login } from './auth/Login';
 import { Logout } from './auth/Logout';
 import './App.css';
 import UserContext from './UserContext';
-import logoImage from './images/icon.png'; 
-import UserIcon from './images/user-icon.png'; 
+import logoImage from './images/icon.png';
+import UserIcon from './images/user-icon.png';
+import Home from './images/home.png';
 
-const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegisterMessage,  activeButton,
-  setActiveButton  }) => { 
+const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegisterMessage, activeButton,
+  setActiveButton, homeCountry, setHomeCountry, isHomeCountrySaved, setIsHomeCountrySaved }) => {
   const location = useLocation();
-  // For setting user home country 
-  const [homeCountry, setHomeCountry] = useState(null);
 
   // Automatically populate countryOptions using the country-list package
   const countryNames = getNames();
-  const countryOptions = countryNames.map((name) => ({ value: name, label: name }));  
+  const countryOptions = countryNames.map((name) => ({ value: name, label: name }));
+
+  // For home country
+  const saveHomeCountryToDatabase = async () => {
+    if (homeCountry) { // Check if a home country is selected
+      try {
+        const response = await fetch('http://localhost:8000/visited-countries/', {
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ home_country: homeCountry.value }),
+        });
+        if (response.ok) {
+          console.log('Home country saved successfully');
+          setIsHomeCountrySaved(true); // Set state to true
+        } else {
+          console.log('Failed to save home country');
+          setIsHomeCountrySaved(false);
+        }
+      } catch (error) {
+        console.log('An error occurred:', error);
+      }
+    }
+  };
 
   return (
     <div className="content">
@@ -53,42 +77,50 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
           )}
           <p>The number of countries you have visited is 0 out of 195</p>
           <div className="home-country-container">
-            <p>Your Home Country</p>
-            <Select
-              value={homeCountry}
-              onChange={(selectedOption) => setHomeCountry(selectedOption)}
-              options={countryOptions}
-              styles={{
-                option: (provided, state) => ({
-                  ...provided,
-                  fontSize: '18px',  
-                  color: state.isSelected ? 'white' : 'black',  // Change text color
-                  backgroundColor: state.isSelected ? 'blue' : 'none', // Change background color on selection
-                }),
-                control: (provided) => ({
-                  ...provided,
-                  height: '50px',
-                  padding: '0'
-                }),
-                valueContainer: (provided) => ({
-                  ...provided,
-                  top: '-20px'
-                }),
-                indicatorsContainer: (provided) => ({
-                  ...provided,
-                  top: '-100px',
-                  padding: '10px',
-                  margin: '0'
-                }),
-                // style for list
-                menu: (provided) => ({ 
-                  ...provided, 
-                  maxHeight: '60px', // set max height
-                  overflowY: 'auto', // add scroll if needed
-                  width: '170px'
-                }),
-              }}
-            />
+            <div className="home-country-header">
+              <p className="home-country-text">Your Home Country</p>
+              <img src={Home} alt="Home" className="home-country-image" />
+            </div>
+            <div className="home-country-selection">
+              <Select
+                value={homeCountry}
+                onChange={(selectedOption) => setHomeCountry(selectedOption)}
+                options={countryOptions}
+                styles={{
+                  option: (provided, state) => ({
+                    ...provided,
+                    fontSize: '20px',
+                    color: state.isSelected ? 'white' : 'black',  // Change text color
+                    backgroundColor: state.isSelected ? 'blue' : 'none', // Change background color on selection
+                  }),
+                  control: (provided) => ({
+                    ...provided,
+                    height: '55px',
+                    width: '170px',
+                    padding: '0',
+                    left: '-13px'
+                  }),
+                  valueContainer: (provided) => ({
+                    ...provided,
+                    top: '-10px',
+                    left: '-20px'
+                  }),
+                  indicatorsContainer: (provided) => ({
+                    ...provided,
+                    alignItems: 'center',
+                    marginTop: '-27px'
+                  }),
+                  // style for list
+                  menu: (provided) => ({
+                    ...provided,
+                    maxHeight: '60px', // set max height
+                    overflowY: 'auto', // add scroll if needed
+                    width: '170px'
+                  }),
+                }}
+              />
+              <button onClick={saveHomeCountryToDatabase}>Save</button>
+            </div>
           </div>
         </div>
       )}
@@ -108,9 +140,29 @@ const App = () => {
   // Use state to temporally store visited countries
   const [visitedCountries, setVisitedCountries] = useState(new Set());
   // For user not registered yet
-  const [showRegisterMessage, setShowRegisterMessage] = useState(false); 
+  const [showRegisterMessage, setShowRegisterMessage] = useState(false);
   // For clicked button
-  const [activeButton, setActiveButton] = useState(null); 
+  const [activeButton, setActiveButton] = useState(null);
+  /// For home country
+  const [homeCountry, setHomeCountry] = useState(null);
+  const [isHomeCountrySaved, setIsHomeCountrySaved] = useState(false);
+
+  // Fetch Home Country from Database
+  const fetchHomeCountry = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/visited-countries/', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`,
+        },
+      });
+      const data = await response.json();
+      setHomeCountry({ value: data.home_country, label: data.home_country });
+      setIsHomeCountrySaved(true);  // Set the flag as true
+    } catch (error) {
+      console.log('An error occurred:', error);
+    }
+  };
 
   // country id as identifier, checks if it is already visited or not
   const markCountry = (countryId, activeButton) => {
@@ -140,7 +192,7 @@ const App = () => {
         const countryData = countryArray.map(country => {
           return { country_name: country }; // Assuming country is a name or identifier you want to send
         });
-  
+
         const response = await fetch('http://localhost:8000/visited-countries/', {
           method: 'POST',
           headers: {
@@ -161,38 +213,38 @@ const App = () => {
     } else {
       setShowRegisterMessage(true); // Show register message if not logged in
     }
-  };  
-  
+  };
+
   // after the user logs in for the first time, reset the page
   const resetState = () => {
     setVisitedCountries(new Set());
     setActiveButton(null);
   };
-  
-  useEffect(() => {
 
-      // For retrieving the visited countries from backend
-  const fetchVisitedCountries = async () => {
-    if (user) {
-      try {
-        const response = await fetch('http://localhost:8000/visited-countries/', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Token ${localStorage.getItem('token')}`,
-          },
-        });
-        const data = await response.json();
-        const countrySet = new Set(data.map(item => item.country_name));
-        setVisitedCountries(countrySet);
-      } catch (error) {
-        console.log('An error occurred:', error);
+  useEffect(() => {
+    // For retrieving the visited countries from the backend
+    const fetchVisitedCountries = async () => {
+      if (user) {
+        try {
+          const response = await fetch('http://localhost:8000/visited-countries/', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Token ${localStorage.getItem('token')}`,
+            },
+          });
+          const data = await response.json();
+          const countrySet = new Set(data.map(item => item.country_name));
+          setVisitedCountries(countrySet);
+        } catch (error) {
+          console.log('An error occurred:', error);
+        }
       }
-    }
-  };
+    };
     if (user) {
       resetState();
       setShowRegisterMessage(false);
       fetchVisitedCountries();
+      fetchHomeCountry();
     }
     console.log('User state updated:', user);
   }, [user]);
@@ -228,13 +280,17 @@ const App = () => {
               </div>
             </div>
           </header>
-          <Content 
-          visitedCountries={visitedCountries} 
-          markCountry={markCountry}
-          saveVisitedCountries={saveVisitedCountries} 
-          showRegisterMessage={showRegisterMessage}
-          activeButton={activeButton}
-          setActiveButton={setActiveButton}
+          <Content
+            visitedCountries={visitedCountries}
+            markCountry={markCountry}
+            saveVisitedCountries={saveVisitedCountries}
+            showRegisterMessage={showRegisterMessage}
+            activeButton={activeButton}
+            setActiveButton={setActiveButton}
+            homeCountry={homeCountry}
+            setHomeCountry={setHomeCountry}
+            isHomeCountrySaved={isHomeCountrySaved}
+            setIsHomeCountrySaved={setIsHomeCountrySaved}
           />
         </Router>
       </div>

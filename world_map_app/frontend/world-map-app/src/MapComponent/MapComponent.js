@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import '../libs/leaflet/leaflet.css';
 
-const MapComponent = ({ visitedCountries, markCountry, activeButton }) => {
+const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry }) => {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
 
@@ -18,14 +18,31 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton }) => {
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstanceRef.current);
 
-      const geoJsonStyle = (feature) => ({
-        color: visitedCountries.has(feature.properties.ISO_A3) ? 'orange' : 'black',
-        weight: 2,      // Thickness of the border
-        opacity: 0.8,     // Opacity of the border
-        fillColor: visitedCountries.has(feature.properties.ISO_A3) ? 'yellow' : 'gray', // Fill color
-        fillOpacity: 0.8 // Opacity of the fill color
-      });
+      const geoJsonStyle = (feature) => {
+        console.log('ISO_A3:', feature.properties.ISO_A3);
+        console.log('homeCountry:', homeCountry);
+        let fillColor;
+        let strokeColor;
 
+      if (feature.properties.ISO_A3 === homeCountry) {
+        fillColor = 'green';
+        strokeColor = 'green';
+      } else if (visitedCountries.has(feature.properties.ISO_A3)) {
+        fillColor = 'yellow';
+        strokeColor = 'orange';
+      } else {
+        fillColor = 'gray';
+        strokeColor = 'black';
+      }
+
+      return {
+        color: strokeColor,
+        weight: 2,  // Thickness of the border
+        opacity: 0.8,  // Opacity of the border
+        fillColor: fillColor, // Fill color
+        fillOpacity: 0.8 // Opacity of the fill color
+      };
+    }
       // Fetch the GeoJSON file
       // GeoJson allows to access to the feture data associated with each country
       fetch('/geojson/countries.geojson')
@@ -54,7 +71,7 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton }) => {
         mapInstanceRef.current = null;
       }
     };
-  }, [visitedCountries, markCountry, activeButton]); // Added dependencies to update styles
+  }, [visitedCountries, markCountry, activeButton, homeCountry]); // Added dependencies to update styles
 
   return <div ref={mapRef} style={{ height: '100vh', width: '100%', border: '2px solid rgb(255, 166, 0)'}} />;
 };
