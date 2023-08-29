@@ -13,7 +13,7 @@ import UserIcon from './images/user-icon.png';
 import Home from './images/home.png';
 
 const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegisterMessage, activeButton,
-  setActiveButton, homeCountry, setHomeCountry, isHomeCountrySaved, setIsHomeCountrySaved }) => {
+  setActiveButton, homeCountry, setHomeCountry, isHomeCountrySaved, setIsHomeCountrySaved,setShowRegisterMessage, user }) => {
   const location = useLocation();
 
   // Automatically populate countryOptions using the country-list package
@@ -22,26 +22,34 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
 
   // For home country
   const saveHomeCountryToDatabase = async () => {
-    if (homeCountry) { // Check if a home country is selected
-      try {
-        const response = await fetch('http://localhost:8000/visited-countries/', {
-          method: 'PATCH',
-          headers: {
-            'Authorization': `Token ${localStorage.getItem('token')}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ home_country: homeCountry.value }),
-        });
-        if (response.ok) {
-          console.log('Home country saved successfully');
-          setIsHomeCountrySaved(true); // Set state to true
-        } else {
-          console.log('Failed to save home country');
-          setIsHomeCountrySaved(false);
+    if(user) {
+      if (homeCountry) { // Check if a home country is selected
+        try {
+          const response = await fetch('http://localhost:8000/visited-countries/', {
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Token ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ home_country: homeCountry.value }),
+          });
+          if (response.ok) {
+            console.log('Home country saved successfully');
+            setIsHomeCountrySaved(true); // Set state to true
+          } else {
+            console.log('Failed to save home country');
+            setIsHomeCountrySaved(false);
+          }
+        } catch (error) {
+          console.log('An error occurred:', error);
         }
-      } catch (error) {
-        console.log('An error occurred:', error);
       }
+      else {
+        console.log('No home country selected');
+      }
+    }
+    else {
+      setShowRegisterMessage(true); 
     }
   };
 
@@ -71,11 +79,10 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
             Save
           </button>
           {showRegisterMessage && (
-            <p id="register-show-message">
+            <p className="register-show-message">
               <Link id="link-to-register" to="/register">Register now</Link> to save your history
             </p>
           )}
-          <p>The number of countries you have visited is 0 out of 195</p>
           <div className="home-country-container">
             <div className="home-country-header">
               <p className="home-country-text">Your Home Country</p>
@@ -90,42 +97,56 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
                   option: (provided, state) => ({
                     ...provided,
                     fontSize: '20px',
+                    marginTop: '-5px', 
                     color: state.isSelected ? 'white' : 'black',  // Change text color
-                    backgroundColor: state.isSelected ? 'blue' : 'none', // Change background color on selection
+                    backgroundColor: state.isSelected ? 'rgb(67, 144, 233)' : 'none', // Change background color on selection
                   }),
                   control: (provided) => ({
                     ...provided,
-                    height: '55px',
-                    width: '170px',
+                    height: '45px',
+                    width: '165px',
                     padding: '0',
-                    left: '-13px'
+                    left: '-30px'
                   }),
                   valueContainer: (provided) => ({
                     ...provided,
-                    top: '-10px',
-                    left: '-20px'
+                    top: '-15px',
+                    left: '-25px'
                   }),
                   indicatorsContainer: (provided) => ({
                     ...provided,
                     alignItems: 'center',
-                    marginTop: '-27px'
+                    marginTop: '-29px',
+                    height: '80px',
+                    left: '20px',
+                    position: 'relative'
                   }),
                   // style for list
                   menu: (provided) => ({
                     ...provided,
-                    maxHeight: '60px', // set max height
+                    maxHeight: '40px', // set max height
                     overflowY: 'auto', // add scroll if needed
-                    width: '170px'
+                    width: '170px',
+                    left: '-25px',
+                    paddingTop: '0px', 
+                    lineHeight: '0.8',
+                    paddingBottom: '0px',
                   }),
                 }}
               />
-              <button onClick={saveHomeCountryToDatabase}>Save</button>
+              <button className="home-save-button" onClick={saveHomeCountryToDatabase}>Save</button>
+              {showRegisterMessage && (
+                <p className="register-show-message2">
+                  <Link id="link-to-register" to="/register">Register now</Link> to save your history
+                </p>
+              )}
             </div>
           </div>
+          <p>The number of countries you have visited is 0 out of 195</p>
         </div>
       )}
       <Routes>
-        <Route exact path="/" element={<MapComponent visitedCountries={visitedCountries} markCountry={markCountry} activeButton={activeButton} />} />
+        <Route exact path="/" element={<MapComponent visitedCountries={visitedCountries} markCountry={markCountry} activeButton={activeButton} homeCountry={homeCountry}/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
@@ -140,7 +161,7 @@ const App = () => {
   // Use state to temporally store visited countries
   const [visitedCountries, setVisitedCountries] = useState(new Set());
   // For user not registered yet
-  const [showRegisterMessage, setShowRegisterMessage] = useState(false);
+  const [showVisitedCountriesSavedMessage, setShowVisitedCountriesSavedMessage] = useState(false);
   // For clicked button
   const [activeButton, setActiveButton] = useState(null);
   /// For home country
@@ -211,7 +232,7 @@ const App = () => {
         console.log('An error occurred:', error);
       }
     } else {
-      setShowRegisterMessage(true); // Show register message if not logged in
+      setShowVisitedCountriesSavedMessage(true); // Show register message if not logged in
     }
   };
 
@@ -281,9 +302,11 @@ const App = () => {
             </div>
           </header>
           <Content
+            user={user}
             visitedCountries={visitedCountries}
             markCountry={markCountry}
             saveVisitedCountries={saveVisitedCountries}
+            setShowRegisterMessage={setShowRegisterMessage}
             showRegisterMessage={showRegisterMessage}
             activeButton={activeButton}
             setActiveButton={setActiveButton}

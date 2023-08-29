@@ -240,10 +240,19 @@ label {
   font-weight: bold;
 }
 
-#register-show-message {
+.register-show-message {
   margin-top: 0;
   text-align: left;
   padding-left: 10px;
+}
+
+.register-show-message2 {
+  margin-top: 0;
+  text-align: left;
+  position: relative;
+  left: -260px;
+  width: 200px;
+  top: 60px;
 }
 
 #link-to-register{
@@ -255,7 +264,7 @@ label {
 }
 
 .home-country-container {
-  height: 300px;
+  height: 250px;
   display: flex;
   align-items: center;
   flex-direction: column;  
@@ -265,25 +274,49 @@ label {
 .home-country-header {
   display: flex;
   align-items: center;
+  margin: 0;
+  height: 70px;
+  position: relative;
+  top: -25px;
+  left: -13px;
 }
 
 .home-country-text {
   margin: 0;
   width: 150px;
+  left: 10px;
+  font-size: 17px;
 }
 
 .home-country-image {
-  height: 70px;
-  width: 120px;
+  height: 60px;
+  width: 110px;
   position: relative;
-  left: -30px;
+  left: -20px;
+  top: -8px;
 }
 
 .home-country-selection {
   display: flex;
   align-items: center;
+  position: relative;
+  top: -50px;
 }
 
+.home-save-button {
+  color: white;
+  position: relative;
+  left: -35px;
+  border-radius: 10px;
+  border: none;
+  height: 40px;
+  width: 60px;
+  background: radial-gradient(circle at 10% 20%, rgb(67, 144, 233) 0%, rgb(78, 226, 198) 90.1%);
+}
+
+.home-save-button:hover {
+  background: linear-gradient(99deg, rgb(255, 166, 0) 14.7%, rgb(255, 99, 97) 73%);
+}
 
 /* for later */
 

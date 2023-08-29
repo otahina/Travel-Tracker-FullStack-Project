@@ -19,21 +19,20 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstanceRef.current);
 
       const geoJsonStyle = (feature) => {
-        console.log('ISO_A3:', feature.properties.ISO_A3);
         console.log('homeCountry:', homeCountry);
         let fillColor;
         let strokeColor;
 
-      if (feature.properties.ISO_A3 === homeCountry) {
-        fillColor = 'green';
-        strokeColor = 'green';
-      } else if (visitedCountries.has(feature.properties.ISO_A3)) {
-        fillColor = 'yellow';
-        strokeColor = 'orange';
-      } else {
-        fillColor = 'gray';
-        strokeColor = 'black';
-      }
+        if (homeCountry && feature.properties.ADMIN === homeCountry.value) {
+          fillColor = '#90ee90';  
+          strokeColor = 'green';
+        } else if (visitedCountries.has(feature.properties.ISO_A3)) {
+          fillColor = 'yellow';
+          strokeColor = 'orange';
+        } else {
+          fillColor = 'gray';
+          strokeColor = 'black';
+        }        
 
       return {
         color: strokeColor,
