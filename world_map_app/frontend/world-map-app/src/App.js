@@ -12,8 +12,8 @@ import logoImage from './images/icon.png';
 import UserIcon from './images/user-icon.png';
 import Home from './images/home.png';
 
-const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegisterMessage, activeButton,
-  setActiveButton, homeCountry, setHomeCountry, isHomeCountrySaved, setIsHomeCountrySaved,setShowRegisterMessage, user }) => {
+const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showHomeCountrySavedMessage, showVisitedCountriesSavedMessage, activeButton,
+  setActiveButton, homeCountry, setHomeCountry, isHomeCountrySaved, setIsHomeCountrySaved,setShowHomeCountrySavedMessage, user,setShowVisitedCountriesSavedMessage }) => {
   const location = useLocation();
 
   // Automatically populate countryOptions using the country-list package
@@ -49,7 +49,8 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
       }
     }
     else {
-      setShowRegisterMessage(true); 
+      setShowHomeCountrySavedMessage(true);
+      setShowVisitedCountriesSavedMessage(false);
     }
   };
 
@@ -78,7 +79,7 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
           >
             Save
           </button>
-          {showRegisterMessage && (
+          {showVisitedCountriesSavedMessage && (
             <p className="register-show-message">
               <Link id="link-to-register" to="/register">Register now</Link> to save your history
             </p>
@@ -135,7 +136,7 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries, showRegi
                 }}
               />
               <button className="home-save-button" onClick={saveHomeCountryToDatabase}>Save</button>
-              {showRegisterMessage && (
+              {showHomeCountrySavedMessage && (
                 <p className="register-show-message2">
                   <Link id="link-to-register" to="/register">Register now</Link> to save your history
                 </p>
@@ -162,6 +163,7 @@ const App = () => {
   const [visitedCountries, setVisitedCountries] = useState(new Set());
   // For user not registered yet
   const [showVisitedCountriesSavedMessage, setShowVisitedCountriesSavedMessage] = useState(false);
+  const [showHomeCountrySavedMessage, setShowHomeCountrySavedMessage] = useState(false);
   // For clicked button
   const [activeButton, setActiveButton] = useState(null);
   /// For home country
@@ -233,6 +235,7 @@ const App = () => {
       }
     } else {
       setShowVisitedCountriesSavedMessage(true); // Show register message if not logged in
+      setShowHomeCountrySavedMessage(false);
     }
   };
 
@@ -263,12 +266,13 @@ const App = () => {
     };
     if (user) {
       resetState();
-      setShowRegisterMessage(false);
+      showVisitedCountriesSavedMessage(false);
+      showHomeCountrySavedMessage(false);
       fetchVisitedCountries();
       fetchHomeCountry();
     }
     console.log('User state updated:', user);
-  }, [user]);
+  }, [user, showVisitedCountriesSavedMessage, showHomeCountrySavedMessage]);
 
 
   return (
@@ -306,8 +310,10 @@ const App = () => {
             visitedCountries={visitedCountries}
             markCountry={markCountry}
             saveVisitedCountries={saveVisitedCountries}
-            setShowRegisterMessage={setShowRegisterMessage}
-            showRegisterMessage={showRegisterMessage}
+            setShowHomeCountrySavedMessage={setShowHomeCountrySavedMessage}
+            showHomeCountrySavedMessage={showHomeCountrySavedMessage}
+            showVisitedCountriesSavedMessage={showVisitedCountriesSavedMessage}
+            setShowVisitedCountriesSavedMessage={setShowVisitedCountriesSavedMessage}
             activeButton={activeButton}
             setActiveButton={setActiveButton}
             homeCountry={homeCountry}
