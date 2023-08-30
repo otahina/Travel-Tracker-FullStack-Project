@@ -31,8 +31,12 @@ def visited_countries(request):
     # For retrieving the list of visited countries
     elif request.method == 'GET':
         countries = VisitedCountry.objects.filter(user=request.user)
+        country_count = countries.count()  # Count the number of visited countries
         serializer = VisitedCountrySerializer(countries, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({
+        'count': country_count, # Include the count in the response
+        'countries': serializer.data
+        }, status=status.HTTP_200_OK)
     
     # For updating home country data
     elif request.method == 'PATCH':

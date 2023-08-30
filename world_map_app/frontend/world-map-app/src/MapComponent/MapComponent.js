@@ -17,6 +17,7 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry
       mapInstanceRef.current.setMaxBounds(bounds);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstanceRef.current);
+      
 
       const geoJsonStyle = (feature) => {
         console.log('homeCountry:', homeCountry);
@@ -58,6 +59,12 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry
               } else {
                 console.log('Marking disabled');
               }
+            });
+            layer.on('mouseover', () => {
+              layer.bindTooltip(feature.properties.ADMIN, {permanent: false, direction: "top"}).openTooltip();
+            });
+            layer.on('mouseout', () => {
+              layer.closeTooltip();
             });
           },          
         }).addTo(mapInstanceRef.current);
