@@ -37,3 +37,18 @@ Using this app, user can create a personalized record of their journeys. All mar
 * **GitHub**: Platform for hosting the codebase and managing collaboration.
 
 ## How to use this project on your local machine 🩵
+
+### Step 1: Install
+
+**Option 1: Clone the Repository (For Using & Experimenting)**
+```python
+gh repo clone otahina/Travel-Tracker-FullStack-Project
+```
+**Option 2: Fork the Repository (For Contributing)**
+1. Click on the "Fork" button at the top-right corner of this page.
+2. Once the repository is forked, you can clone it to your local machine:
+
+### Step 2: Install Python dependencies
+
+
+
