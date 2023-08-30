@@ -92,3 +92,27 @@ You can use Homebrew:
  brew services start postgresql
  ```
 
+3. Open the command-line tool
+```
+psql -U postgres
+```
+```sql
+CREATE DATABASE your_database_name; ①
+CREATE ROLE newuser WITH LOGIN PASSWORD 'password'; ② ③
+/c  your_database_name;
+GRANT ALL PRIVILEGES ON DATABASE your_database_name TO newuser;
+GRANT ALL PRIVILEGES ON SCHEMA public TO newuser;
+```
+
+#### Configure .env file
+
+1. Open the .envexample file.
+2. Change the name into '`.env` file.
+3. Edit `.env` file.
+```
+ENGINE=django.db.backends.postgresql_psycopg2 # you don't need to change here
+NAME=your_database_name_here　＃ ①
+USER=your_database_user_here　＃ ②
+PASSWORD=your_database_password_here　＃　③
+HOST=localhost_or_host_address_here　# usually localhost
+```
