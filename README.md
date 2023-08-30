@@ -38,7 +38,7 @@ Using this app, user can create a personalized record of their journeys. All mar
 
 ## How to use this project on your local machine 🩵
 
-### Step 1: Install
+### Step 1: Download the Code
 
 **Option 1: Clone the Repository (For Using & Experimenting)**
 ```python
@@ -48,7 +48,47 @@ gh repo clone otahina/Travel-Tracker-FullStack-Project
 1. Click on the "Fork" button at the top-right corner of this page.
 2. Once the repository is forked, you can clone it to your local machine:
 
-### Step 2: Install Python dependencies
+## Step 2: Create a Virtual Environment (Optional but Recommended)
+For windows
+```
+python -m venv myenv
+.\myenv\Scripts\activate
+```
+For macOS and Linux
+```
+python3 -m venv myenv
+source myenv/bin/activate
+```
 
+### Step 3: Install Python dependencies
 
+```
+cd world_map_app
+pip install -r requirements.txt
+```
+
+### Step 4:  Install Node Modules for React
+ ```
+ cd world_map_app/frontend
+ npm install
+```
+
+### Step 5: PostgreSQL Database Configuration 🐘
+
+**This project is using**   ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white) for database
+
+Before running the project, you need to set up a PostgreSQL database and configure the `.env` file.
+
+#### On Windows:
+
+1. Download the installer from [PostgreSQL Official Site](https://www.postgresql.org/download/windows/).
+2. Run the installer and follow the instructions.
+
+#### On Mac:
+
+You can use Homebrew:
+ ```
+ brew install postgresql
+ brew services start postgresql
+ ```
 
