@@ -7,12 +7,13 @@ import { Register } from './auth/Register';
 import { Login } from './auth/Login';
 import { Logout } from './auth/Logout';
 import './App.css';
+import Modal from './Modal';
 import UserContext from './UserContext';
 import logoImage from './images/icon.png';
 import UserIcon from './images/user-icon.png';
 import Home from './images/home.png';
 
-const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showError,setShowError, activeButton,
+const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showModal,setShowModal, activeButton,
   setActiveButton, homeCountry, setHomeCountry, visitedCountryCount, setIsHomeCountrySaved, user, }) => {
   const location = useLocation();
 
@@ -49,7 +50,7 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showError
       }
     }
     else {
-      setShowError(true);
+      setShowModal(true);
     }
   };
 
@@ -78,11 +79,12 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showError
           >
             Save
           </button>
-          {showError && (
-            <p className="register-show-message">
-              <Link id="link-to-register" to="/register">Register now</Link> to save your history
+          <Modal show={showModal} handleClose={() => setShowModal(false)}>
+            <p>
+              Register now to save your history
+              <Link id="link-to-register" to="/register">Register</Link> 
             </p>
-          )}
+          </Modal>
           <div className="home-country-container">
             <div className="home-country-header">
               <p className="home-country-text">Your Home Country</p>
@@ -135,7 +137,7 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showError
                 }}
               />
               <button className="home-save-button" onClick={saveHomeCountryToDatabase}>Save</button>
-              {showError && (
+              {showModal && (
                 <p className="register-show-message2">
                   <Link id="link-to-register" to="/register">Register now</Link> to save your history
                 </p>
@@ -169,7 +171,8 @@ const App = () => {
   const [isHomeCountrySaved, setIsHomeCountrySaved] = useState(false);
   // For counting visited countries
   const [visitedCountryCount, setVisitedCountryCount] = useState(0);
-  const [showError, setShowError] = useState(false);
+  // For showing error message
+  const [showModal, setShowModal] = useState(false);
 
   // Fetch Home Country from Database
   const fetchHomeCountry = async () => {
@@ -236,7 +239,7 @@ const App = () => {
         console.log('An error occurred:', error);
       }
     } else {
-      setShowError(true);
+      setShowModal(true);
     }
   };
 
@@ -309,8 +312,8 @@ const App = () => {
             visitedCountries={visitedCountries}
             markCountry={markCountry}
             saveVisitedCountries={saveVisitedCountries}
-            showError={showError}
-            setShowError={setShowError}
+            showModal={showModal}
+            setShowModal={setShowModal}
             activeButton={activeButton}
             setActiveButton={setActiveButton}
             homeCountry={homeCountry}
