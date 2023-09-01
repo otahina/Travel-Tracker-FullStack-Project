@@ -12,6 +12,7 @@ import UserContext from './UserContext';
 import logoImage from './images/icon.png';
 import UserIcon from './images/user-icon.png';
 import Home from './images/home.png';
+import Diary from './images/diary.png';
 
 const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showModal,setShowModal, activeButton,
   setActiveButton, homeCountry, setHomeCountry, visitedCountryCount, setIsHomeCountrySaved, user, }) => {
@@ -80,6 +81,8 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showModal
             Save
           </button>
           <Modal show={showModal} handleClose={() => setShowModal(false)}>
+          <img src={Diary} alt="Diary" id="diary" />
+            <h3 id="start-today">Start Today</h3>
             <p>
               Register now to save your history
               <Link id="link-to-register" to="/register">Register</Link> 
