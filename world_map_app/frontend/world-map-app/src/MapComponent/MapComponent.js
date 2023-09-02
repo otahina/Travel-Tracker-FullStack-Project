@@ -5,6 +5,7 @@ import '../libs/leaflet/leaflet.css';
 const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry }) => {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  let legendRef = useRef(null); // Store reference to the legend
 
   useEffect(() => {
     if (!mapInstanceRef.current && mapRef.current) {
@@ -62,6 +63,11 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry
               });
             },
           }).addTo(mapInstanceRef.current);
+
+          // Remove existing legend
+          if (legendRef.current) {
+            legendRef.current.remove();
+          }
   
           // Legend code starts here
           const legend = L.control({ position: 'bottomleft' });
@@ -69,16 +75,20 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry
             const div = L.DomUtil.create('div', 'map-legend');
             div.innerHTML += `
               <div class="map-legend-item">
-                <div class="map-legend-box" style="background-color: yellow;"></div> Visited Countries
+                <div class="map-legend-box" style="background-color: yellow;"></div> 
+                <span class="legend-visited-disc">Visited Countries</span>
               </div>
               <div class="map-legend-item">
-                <div class="map-legend-box" style="background-color: #90ee90;"></div> Home Country
+                <div class="map-legend-box" style="background-color: #90ee90;"></div>
+                <span>Home Country</span>
               </div>
             `;
             return div;
-          };
+          };          
           legend.addTo(mapInstanceRef.current);
-          // Legend code ends here
+
+           // Save reference to the new legend
+          legendRef.current = legend;
         });
     }
 
@@ -86,6 +96,10 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
+      }
+      // Remove legend when component unmounts
+      if (legendRef.current) {
+        legendRef.current.remove();
       }
     };
   }, [visitedCountries, markCountry, activeButton, homeCountry]);
