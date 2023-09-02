@@ -6,6 +6,7 @@ import MapComponent from './MapComponent/MapComponent';
 import { Register } from './auth/Register';
 import { Login } from './auth/Login';
 import { Logout } from './auth/Logout';
+import Profile  from './auth/Profile'; 
 import './App.css';
 import Modal from './Modal';
 import UserContext from './UserContext';
@@ -169,6 +170,7 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showModal
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );
@@ -321,12 +323,16 @@ const App = () => {
                 {user ? (
                   <>
                     <span id="username">{user.username}</span>
-                    <img src={UserIcon} alt="User" id="user-icon" />
+                    <Link to="/profile">
+                      <img src={UserIcon} alt="User" id="user-icon" />
+                    </Link>
                   </>
                 ) : (
                   <>
                     <span id="guest">Guest</span>
-                    <img src={UserIcon} alt="User" id="user-icon" />
+                    <Link to="/profile">
+                      <img src={UserIcon} alt="User" id="user-icon" />
+                    </Link>
                   </>
                 )}
               </div>

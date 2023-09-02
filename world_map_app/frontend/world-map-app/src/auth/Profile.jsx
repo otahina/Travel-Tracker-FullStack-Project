@@ -6,7 +6,7 @@ const Profile = () => {
 
   useEffect(() => {
     // Fetch user profile data
-    axios.get('/api/profile/', {
+    axios.get('http://localhost:8000/users/profile/', {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`
       }
@@ -28,10 +28,9 @@ const Profile = () => {
           <p><strong>Email:</strong> {userData.email}</p>
           <p><strong>First Name:</strong> {userData.first_name}</p>
           <p><strong>Last Name:</strong> {userData.last_name}</p>
-          <p><strong>Date Joined:</strong> {new Date(userData.date_joined).toLocaleString()}</p>
         </>
       ) : (
-        <p>Loading profile...</p>
+        <p>You are a guest</p>
       )}
     </div>
   );
