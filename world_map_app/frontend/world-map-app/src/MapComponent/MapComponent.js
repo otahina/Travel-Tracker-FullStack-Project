@@ -75,11 +75,11 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry
             const div = L.DomUtil.create('div', 'map-legend');
             div.innerHTML += `
               <div class="map-legend-item">
-                <div class="map-legend-box" style="background-color: yellow;"></div> 
+              <div class="map-legend-box" style="background-color: yellow; border: 2px solid orange;"></div>
                 <span class="legend-visited-disc">Visited Countries</span>
               </div>
               <div class="map-legend-item">
-                <div class="map-legend-box" style="background-color: #90ee90;"></div>
+              <div class="map-legend-box" style="background-color: #90ee90; border: 2px solid darkgreen;"></div>
                 <span>Home Country</span>
               </div>
             `;
