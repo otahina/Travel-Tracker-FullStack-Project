@@ -83,10 +83,14 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showModal
           <Modal show={showModal} handleClose={() => setShowModal(false)}>
           <img src={Diary} alt="Diary" id="diary" />
             <h3 id="start-today">Start Today</h3>
-            <p>
-              Register now to save your history
-              <Link id="link-to-register" to="/register">Register</Link> 
-            </p>
+            <div class="start-today-disc">
+              <p>
+              Don't put off your dreams for another day. With just a few clicks, you can begin your journey towards better self-awareness and growth. 
+              Register now and make today the first day of the rest of your life.
+                <Link id="link-to-register" to="/register">Register</Link> 
+              </p>
+              <p>Click the 'X' button to continue using the app as a guest.</p>
+            </div>
           </Modal>
           <div className="home-country-container">
             <div className="home-country-header">

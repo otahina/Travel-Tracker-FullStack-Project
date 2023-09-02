@@ -337,7 +337,7 @@ label {
   background: white;
   color: black;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 550px;
   height: 300px;
   z-index: 1000;
@@ -346,19 +346,19 @@ label {
 }
 
 .close {
-  margin-top:20px;
+  margin-top:10px;
   margin-right: 20px;
   border-radius: 50%;  /* Round border for a circular shape */
   border: 1px solid black;
-  font-size: 40px;
+  font-size: 30px;
   outline: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: transparent;
   color: black;
-  line-height: 35px;  /* To center the 'x' vertically */
+  line-height: 25px;  /* To center the 'x' vertically */
   text-align: center;  /* To center the 'x' horizontally */
   float: right;
 }
@@ -374,9 +374,19 @@ label {
 
 #diary {
   height: 85px; 
-  margin-left: 180px;
+  margin-left: 230px;
   margin-top: 20px;
   vertical-align: middle;
+}
+
+#start-today {
+  font-size: 30px;
+  text-align: center;
+
+}
+
+.start-today-disc {
+  padding: 10px;
 }
 
 /* for later */
