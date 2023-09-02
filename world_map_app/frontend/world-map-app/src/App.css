@@ -454,25 +454,25 @@ label {
   font-size: 14px;
 }
 
-/* for later */
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Map Legend Styles */
+.map-legend {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.map-legend-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
+
