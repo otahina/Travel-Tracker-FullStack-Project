@@ -15,7 +15,7 @@ import Home from './images/home.png';
 import Diary from './images/diary.png';
 
 const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showModal,setShowModal, activeButton,
-  setActiveButton, homeCountry, setHomeCountry, visitedCountryCount, setIsHomeCountrySaved, user, }) => {
+  setActiveButton, homeCountry, setHomeCountry, visitedCountryCount, setIsHomeCountrySaved, user,}) => {
   const location = useLocation();
 
   // Automatically populate countryOptions using the country-list package
@@ -86,15 +86,17 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showModal
             <div class="start-today-disc">
               <p>
               Don't put off your dreams for another day. With just a few clicks, you can begin your journey towards better self-awareness and growth. 
-              Register now and make today the first day of the rest of your life.
-                <Link id="link-to-register" to="/register">Register</Link> 
+                <Link id="link-to-register" to="/register">REGISTER</Link> 
               </p>
-              <p>Click the 'X' button to continue using the app as a guest.</p>
+              <p id="close-disc">Click the 'X' button to continue using the app as a guest.</p>
             </div>
           </Modal>
           <div className="home-country-container">
             <div className="home-country-header">
               <p className="home-country-text">Your Home Country</p>
+              <h5 className="home-country-shows">
+                {homeCountry ? homeCountry.label : 'Not set'}
+              </h5>
               <img src={Home} alt="Home" className="home-country-image" />
             </div>
             <div className="home-country-selection">
@@ -143,16 +145,22 @@ const Content = ({ visitedCountries, markCountry, saveVisitedCountries,showModal
                   }),
                 }}
               />
-              <button className="home-save-button" onClick={saveHomeCountryToDatabase}>Save</button>
-              {showModal && (
-                <p className="register-show-message2">
-                  <Link id="link-to-register" to="/register">Register now</Link> to save your history
-                </p>
-              )}
+           <button className="home-save-button" onClick={saveHomeCountryToDatabase}>Save</button>
+          <Modal show={showModal} handleClose={() => setShowModal(false)}>
+          <img src={Diary} alt="Diary" id="diary" />
+            <h3 id="start-today">Start Today</h3>
+            <div class="start-today-disc">
+              <p>
+              Don't put off your dreams for another day. With just a few clicks, you can begin your journey towards better self-awareness and growth. 
+                <Link id="link-to-register" to="/register">REGISTER</Link> 
+              </p>
+              <p id="close-disc">Click the 'X' button to continue using the app as a guest.</p>
+            </div>
+          </Modal>
             </div>
           </div>
-          <div className="count-country-container">
-            <p>The number of countries you have visited is {visitedCountryCount} out of 195</p>
+          <div className="CountCountryContainer">
+            <p>You have visited <span className="count-visited">{visitedCountryCount}</span> countries out of 195</p>
           </div>
         </div>
       )}
@@ -180,23 +188,6 @@ const App = () => {
   const [visitedCountryCount, setVisitedCountryCount] = useState(0);
   // For showing error message
   const [showModal, setShowModal] = useState(false);
-
-  // Fetch Home Country from Database
-  const fetchHomeCountry = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/visited-countries/', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Token ${localStorage.getItem('token')}`,
-        },
-      });
-      const data = await response.json();
-      setHomeCountry({ value: data.home_country, label: data.home_country });
-      setIsHomeCountrySaved(true);  // Set the flag as true
-    } catch (error) {
-      console.log('An error occurred:', error);
-    }
-  };
 
   // country id as identifier, checks if it is already visited or not
   const markCountry = (countryId, activeButton) => {
@@ -257,7 +248,24 @@ const App = () => {
   };
 
   useEffect(() => {
-    // For retrieving the visited countries from the backend
+    // For retrieving the user home country
+    const fetchHomeCountry = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/users/home-country/', { // Replace this URL with your actual user API
+          method: 'GET',
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`,
+          },
+        });
+        const data = await response.json();
+        setHomeCountry({ value: data.home_country, label: data.home_country });
+        setIsHomeCountrySaved(true); // Set the flag as true
+      } catch (error) {
+        console.log('An error occurred:', error);
+      }
+    };
+    
+    // For retrieving the visited countries from backend
     const fetchVisitedCountries = async () => {
       if (user) {
         try {
@@ -267,14 +275,24 @@ const App = () => {
               'Authorization': `Token ${localStorage.getItem('token')}`,
             },
           });
-          const data = await response.json();
-          const countrySet = new Set(data.map(item => item.country_name));
-          setVisitedCountries(countrySet);
+    
+          if (response.ok) {
+            const data = await response.json();
+            if (Array.isArray(data.countries)) {  // Make sure the data is in expected format
+              const countrySet = new Set(data.countries.map(item => item.country_name));
+              setVisitedCountries(countrySet);
+              setVisitedCountryCount(countrySet.size);
+            } else {
+              console.log('Unexpected data structure:', data);
+            }
+          } else {
+            console.log(`An error occurred: ${response.status}`);
+          }
         } catch (error) {
-          console.log('An error occurred:', error);
+          console.log('An exception occurred:', error);
         }
       }
-    };
+    };    
     if (user) {
       resetState();
       fetchVisitedCountries();

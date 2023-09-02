@@ -47,6 +47,14 @@ class LogoutView(APIView):
         
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class HomeCountryView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        home_country = user.home_country  
+        return Response({"home_country": home_country}, status=status.HTTP_200_OK)
 
 
 

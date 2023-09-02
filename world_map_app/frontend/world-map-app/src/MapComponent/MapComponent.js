@@ -23,6 +23,7 @@ const MapComponent = ({ visitedCountries, markCountry, activeButton, homeCountry
         console.log('homeCountry:', homeCountry);
         let fillColor;
         let strokeColor;
+        console.log('visitedCountries:', visitedCountries);
 
         if (homeCountry && feature.properties.ADMIN === homeCountry.value) {
           fillColor = '#90ee90';  

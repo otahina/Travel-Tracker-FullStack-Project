@@ -255,16 +255,8 @@ label {
   top: 60px;
 }
 
-#link-to-register{
-  color: rgb(78, 226, 198);
-}
-
-#link-to-register:hover{
-  color: rgb(67, 144, 233);
-}
-
 .home-country-container {
-  height: 220px;
+  height: 130px;
   display: flex;
   align-items: center;
   flex-direction: column;  
@@ -288,11 +280,20 @@ label {
   font-size: 17px;
 }
 
+.home-country-shows {
+  margin: 0;
+  width: 150px;
+  top: 30px;
+  left: -135px;
+  position: relative;
+  font-size: 17px;
+}
+
 .home-country-image {
   height: 60px;
   width: 110px;
   position: relative;
-  left: -20px;
+  left: -170px;
   top: -8px;
 }
 
@@ -300,7 +301,7 @@ label {
   display: flex;
   align-items: center;
   position: relative;
-  top: -50px;
+  top: -20px;
 }
 
 .home-save-button {
@@ -316,6 +317,20 @@ label {
 
 .home-save-button:hover {
   background: linear-gradient(99deg, rgb(255, 166, 0) 14.7%, rgb(255, 99, 97) 73%);
+}
+
+.CountCountryContainer {
+  color: black;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 16px;
+  width: 200px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.count-visited {
+  color: blue;
 }
 
 /* For modaling */
@@ -338,8 +353,8 @@ label {
   color: black;
   padding: 20px;
   border-radius: 10px;
-  width: 550px;
-  height: 300px;
+  width: 600px;
+  height: 400px;
   z-index: 1000;
   top: -100px;
   position: relative;
@@ -374,19 +389,49 @@ label {
 
 #diary {
   height: 85px; 
-  margin-left: 230px;
+  margin-left: 250px;
   margin-top: 20px;
   vertical-align: middle;
 }
 
 #start-today {
-  font-size: 30px;
+  font-size: 40px;
   text-align: center;
-
 }
 
 .start-today-disc {
-  padding: 10px;
+  top: -50px;
+  left: 70px;
+  position: relative;
+  width: 400px;
+  text-align: center;
+}
+
+#link-to-register{
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgb(248, 79, 60);
+  border: 1px rgb(248, 79, 60) solid;
+  padding: 5px 20px;
+  text-decoration: none;
+  border-radius: 20px;
+  width: 200px;
+  position: relative;
+  top: 50px;
+  left: -80px;
+}
+
+#link-to-register:hover{
+ color: white;
+ background-color: #3cdfff;
+ border: 1px #3cdfff solid;
+}
+
+#close-disc{
+  position: relative;
+  top: 70px;
+  font-size: 14px;
 }
 
 /* for later */
