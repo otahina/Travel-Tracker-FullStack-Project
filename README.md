@@ -21,6 +21,17 @@ https://github.com/otahina/Travel-Tracker-FullStack-Project/assets/108225969/7d2
 
 ## Technologies 🛠️
 
+### 🌐 Interactive Mapping with Leaflet and GeoJSON
+
+**GlobeMarks** takes the art of interactive mapping to the next level using the powerful combination of **Leaflet** and **GeoJSON**.
+
+* **Leaflet 🍃**: **Leaflet** is the leading open-source JavaScript library for interactive maps. By integrating it into **GlobeMarks**, we bring you a fast, intuitive, and efficient mapping experience
+
+* **GeoJSON 🌍**: **GeoJSON** is a format for encoding a variety of geographic data structures. At its core, **GlobeMarks** uses GeoJSON to represent the shapes and boundaries of countries. This ensures precision and accuracy when you mark the countries you've visited. 
+
+* **Together, A Perfect Pair 🌟** 
+The fusion of **Leaflet**'s interactive capabilities with **GeoJSON**'s data representation gives users of **GlobeMarks** a rich and immersive experience. Navigate the globe, zoom into regions, and mark countries with confidence knowing you're backed by some of the best tools in the world of web mapping.
+
 ### Frontend
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -46,8 +57,8 @@ https://github.com/otahina/Travel-Tracker-FullStack-Project/assets/108225969/7d2
 ### Step 1: Download the Code
 
 **Option 1: Clone the Repository (For Using & Experimenting)**
-```python
-gh repo clone otahina/Travel-Tracker-FullStack-Project
+```bash
+git clone https://github.com/otahina/Travel-Tracker-FullStack-Project.git
 ```
 **Option 2: Fork the Repository (For Contributing)**
 1. Click on the "Fork" button at the top-right corner of this page.
