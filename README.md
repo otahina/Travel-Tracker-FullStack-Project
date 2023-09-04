@@ -1,4 +1,5 @@
-![world-map-app-banner](https://github.com/otahina/World-Map/assets/108225969/f7be9597-2189-44b9-a507-14b1c07bca64)
+
+![world-map-app-banner](https://github.com/otahina/Travel-Tracker-FullStack-Project/assets/108225969/3834813c-61cf-42ac-8220-83ecbf732785)
 
 
 ## GlobeMarks is a web application that allows users to log in, visually explore a map of the world, and mark the countries they have visited.
