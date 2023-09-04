@@ -8,7 +8,11 @@ Using this app, user can create a personalized record of their journeys. All mar
 
 ## Demo Highlights 🎬
 
-https://github.com/otahina/Travel-Tracker-FullStack-Project/assets/108225969/7d26d00b-d420-476f-b481-694fcf2ab943
+
+
+https://github.com/otahina/Travel-Tracker-FullStack-Project/assets/108225969/4dc81ec8-5cfd-43cb-8531-58f54e8d70e1
+
+
 
 
 ## Features 🌍
