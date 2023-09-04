@@ -7,6 +7,9 @@ Using this app, user can create a personalized record of their journeys. All mar
 
 ## Demo Highlights 🎬
 
+https://github.com/otahina/Travel-Tracker-FullStack-Project/assets/108225969/7d26d00b-d420-476f-b481-694fcf2ab943
+
+
 ## Features 🌍
 
 * **Interactive Global Map**: Navigate a visual map of the world, zooming in and out to explore various regions.
