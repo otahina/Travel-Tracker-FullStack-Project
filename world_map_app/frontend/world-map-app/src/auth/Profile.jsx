@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 const Profile = () => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    // Fetch user profile data
     axios.get('http://localhost:8000/users/profile/', {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`
@@ -20,14 +20,26 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
+    <div className="profile-container">
       { userData ? (
         <>
-          <h1>Profile</h1>
-          <p><strong>Username:</strong> {userData.username}</p>
-          <p><strong>Email:</strong> {userData.email}</p>
-          <p><strong>First Name:</strong> {userData.first_name}</p>
-          <p><strong>Last Name:</strong> {userData.last_name}</p>
+          <h1 className="profile-header">Profile</h1>
+          <div className="profile-item">
+            <strong>Username:</strong>
+            <span>{userData.username}</span>
+          </div>
+          <div className="profile-item">
+            <strong>Email:</strong>
+            <span>{userData.email}</span>
+          </div>
+          <div className="profile-item">
+            <strong>First Name:</strong>
+            <span>{userData.first_name}</span>
+          </div>
+          <div className="profile-item">
+            <strong>Last Name:</strong>
+            <span>{userData.last_name}</span>
+          </div>
         </>
       ) : (
         <p>You are a guest</p>
@@ -37,3 +49,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

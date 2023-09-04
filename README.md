@@ -5,6 +5,8 @@
 
 Using this app, user can create a personalized record of their journeys. All marked countries can be saved, and the data is securely stored in the database, offering users an engaging way to reflect on their global adventures.
 
+## Demo Highlights 🎬
+
 ## Features 🌍
 
 * **Interactive Global Map**: Navigate a visual map of the world, zooming in and out to explore various regions.
